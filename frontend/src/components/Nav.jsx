@@ -1,0 +1,100 @@
+import React, { useEffect, useState } from "react";
+import { HOME } from "../constants/testIds";
+import { SOCIAL } from "../data/site";
+import { Github, Twitter, Linkedin, Youtube, Mail } from "lucide-react";
+
+const Nav = () => {
+  const [open, setOpen] = useState(false);
+  const [hash, setHash] = useState("");
+
+  useEffect(() => {
+    const onScroll = () => {
+      const sections = ["about", "projects", "youtube", "contact"];
+      let current = "";
+      for (const s of sections) {
+        const el = document.getElementById(s);
+        if (el && el.getBoundingClientRect().top <= 120) current = s;
+      }
+      setHash(current);
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const link = (id, label, testid) => (
+    <a
+      key={id}
+      href={`#${id}`}
+      data-testid={testid}
+      onClick={() => setOpen(false)}
+      className="link-u"
+      style={{
+        fontSize: 13,
+        color: hash === id ? "var(--accent)" : "var(--fg-dim)",
+        transition: "color 0.2s"
+      }}
+    >
+      <span style={{ color: "var(--fg-mute)" }}>~/</span>{label}
+    </a>
+  );
+
+  return (
+    <header
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 50,
+        background: "rgba(10, 12, 10, 0.78)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        borderBottom: "1px solid var(--border-soft)"
+      }}
+    >
+      <div className="container-x" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 24px" }}>
+        <a href="#top" data-testid={HOME.navHome} style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+          <span style={{
+            width: 28, height: 28, borderRadius: 4,
+            background: "var(--bg-elev)", border: "1px solid var(--accent)",
+            display: "grid", placeItems: "center",
+            color: "var(--accent)", fontWeight: 800, fontSize: 13,
+            boxShadow: "0 0 12px var(--accent-glow)"
+          }}>
+            $_
+          </span>
+          <span style={{ color: "var(--fg)", fontWeight: 600, fontSize: 14 }}>
+            eminwux<span style={{ color: "var(--accent)" }}>.dev</span>
+          </span>
+        </a>
+
+        <nav className="hidden-sm" style={{ display: "flex", alignItems: "center", gap: 28 }}>
+          {link("about", "about", HOME.navAbout)}
+          {link("projects", "projects", HOME.navProjects)}
+          {link("youtube", "youtube", HOME.navYoutube)}
+          {link("contact", "contact", HOME.navContact)}
+        </nav>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <a href={SOCIAL.github} target="_blank" rel="noreferrer" data-testid={HOME.socialGithub} className="hover-glow" style={{ color: "var(--fg-dim)" }} aria-label="GitHub">
+            <Github size={16} />
+          </a>
+          <a href={SOCIAL.twitter} target="_blank" rel="noreferrer" data-testid={HOME.socialTwitter} className="hover-glow" style={{ color: "var(--fg-dim)" }} aria-label="X / Twitter">
+            <Twitter size={16} />
+          </a>
+          <a href={SOCIAL.linkedin} target="_blank" rel="noreferrer" data-testid={HOME.socialLinkedin} className="hover-glow" style={{ color: "var(--fg-dim)" }} aria-label="LinkedIn">
+            <Linkedin size={16} />
+          </a>
+          <a href={SOCIAL.youtube} target="_blank" rel="noreferrer" data-testid={HOME.socialYoutube} className="hover-glow" style={{ color: "var(--fg-dim)" }} aria-label="YouTube">
+            <Youtube size={16} />
+          </a>
+        </div>
+      </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .hidden-sm { display: none !important; }
+        }
+      `}</style>
+    </header>
+  );
+};
+
+export default Nav;

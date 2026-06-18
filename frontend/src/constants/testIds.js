@@ -1,0 +1,22 @@
+export const HOME = {
+  emergentLink: "emergent-link",
+  hero: "hero-section",
+  about: "about-section",
+  projects: "projects-section",
+  youtube: "youtube-section",
+  contact: "contact-section",
+  navHome: "nav-home",
+  navAbout: "nav-about",
+  navProjects: "nav-projects",
+  navYoutube: "nav-youtube",
+  navContact: "nav-contact",
+  socialGithub: "social-github",
+  socialTwitter: "social-twitter",
+  socialLinkedin: "social-linkedin",
+  socialYoutube: "social-youtube",
+  socialEmail: "social-email",
+  projectKukeon: "project-kukeon",
+  projectSbsh: "project-sbsh",
+  videoCard: "video-card",
+  playlistCard: "playlist-card"
+};
