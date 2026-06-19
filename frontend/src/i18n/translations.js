@@ -4,6 +4,7 @@
 export const en = {
   nav: {
     home: "home",
+    blog: "blog",
     projects: "projects",
     youtube: "youtube",
     contact: "contact",
@@ -108,6 +109,7 @@ export const en = {
 export const es = {
   nav: {
     home: "inicio",
+    blog: "blog",
     projects: "proyectos",
     youtube: "youtube",
     contact: "contacto",

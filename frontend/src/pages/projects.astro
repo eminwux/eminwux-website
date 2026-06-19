@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectsIsland from '../islands/ProjectsIsland.jsx';
+---
+<BaseLayout
+  title="projects"
+  description="Open source projects by Emiliano Spinella — kukeon (agent-native runtime) and sbsh (Terminal-as-Code)."
+>
+  <ProjectsIsland client:load />
+</BaseLayout>

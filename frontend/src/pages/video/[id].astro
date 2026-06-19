@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import VideoIsland from '../../islands/VideoIsland.jsx';
+import { VIDEOS } from '../../data/site.js';
+
+export async function getStaticPaths() {
+  return VIDEOS.map((v) => ({
+    params: { id: v.id },
+    props: { video: v },
+  }));
+}
+
+const { id } = Astro.params;
+const { video } = Astro.props;
+
+const description = video?.description?.slice(0, 200) ?? '';
+const lang = video?.lang === 'es' ? 'es' : 'en';
+const image = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+
+const jsonLd = video ? {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: video.title,
+  description,
+  thumbnailUrl: [image],
+  uploadDate: undefined,
+  contentUrl: `https://www.youtube.com/watch?v=${id}`,
+  embedUrl: `https://www.youtube-nocookie.com/embed/${id}`,
+  duration: undefined,
+  inLanguage: lang,
+} : undefined;
+---
+<BaseLayout
+  title={video?.title ?? id}
+  description={description}
+  image={image}
+  type="article"
+  lang={lang as 'en' | 'es'}
+  jsonLd={jsonLd}
+>
+  <VideoIsland id={id} client:load />
+</BaseLayout>

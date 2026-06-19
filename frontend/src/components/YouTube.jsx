@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { VIDEOS, PLAYLISTS, SOCIAL } from "../data/site";
 import { HOME } from "../constants/testIds";
 import { Play, ListVideo, ExternalLink } from "lucide-react";
@@ -11,8 +10,8 @@ const VideoCard = ({ v, i }) => {
   const { t } = useLanguage();
 
   return (
-    <Link
-      to={`/video/${v.id}`}
+    <a
+      href={`/video/${v.id}`}
       data-testid={`${HOME.videoCard}-${v.id}`}
       className="card-term reveal"
       style={{
@@ -56,7 +55,7 @@ const VideoCard = ({ v, i }) => {
           <span>{v.age}</span>
         </div>
       </div>
-    </Link>
+    </a>
   );
 };
 

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#10130f"/>
+      <stop offset="1" stop-color="#0a0c0a"/>
+    </linearGradient>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="65%">
+      <stop offset="0.6" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.55"/>
+    </radialGradient>
+    <pattern id="scan" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="2" fill="#ffffff" fill-opacity="0.015"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#scan)"/>
+
+  <!-- terminal window frame -->
+  <g transform="translate(80,90)">
+    <rect x="0" y="0" width="1040" height="450" rx="10" fill="#10130f" stroke="#2a3221"/>
+    <rect x="0" y="0" width="1040" height="46" rx="10" fill="#151911"/>
+    <circle cx="26"  cy="23" r="7" fill="#ff5f56"/>
+    <circle cx="50"  cy="23" r="7" fill="#ffbd2e"/>
+    <circle cx="74"  cy="23" r="7" fill="#27c93f"/>
+    <text x="110" y="29" fill="#5a6450" font-family="JetBrains Mono, ui-monospace, monospace" font-size="15">— zsh — ~/eminwux</text>
+
+    <g font-family="JetBrains Mono, ui-monospace, monospace">
+      <text x="32" y="100" font-size="22">
+        <tspan fill="#a3e635">eminwux</tspan><tspan fill="#8a9579">@</tspan><tspan fill="#78dce8">linux</tspan><tspan fill="#8a9579">:</tspan><tspan fill="#f5c451">~</tspan><tspan fill="#8a9579">$ </tspan><tspan fill="#d7e2c4">whoami</tspan>
+      </text>
+      <text x="32" y="138" fill="#d7e2c4" font-size="22">Emiliano Spinella</text>
+
+      <text x="32" y="186" font-size="22">
+        <tspan fill="#a3e635">eminwux</tspan><tspan fill="#8a9579">@</tspan><tspan fill="#78dce8">linux</tspan><tspan fill="#8a9579">:</tspan><tspan fill="#f5c451">~</tspan><tspan fill="#8a9579">$ </tspan><tspan fill="#d7e2c4">cat /etc/role</tspan>
+      </text>
+      <text x="32" y="224" fill="#d7e2c4" font-size="22">Systems Engineer · Containers · GNU/Linux</text>
+
+      <text x="32" y="290" font-family="JetBrains Mono, monospace" font-weight="800" font-size="84" letter-spacing="6" fill="#a3e635" filter="drop-shadow(0 0 18px #a3e63555)">EMINWUX.COM</text>
+
+      <text x="32" y="360" fill="#8a9579" font-size="22">
+        <tspan fill="#a3e635">❯</tspan> Building agent-native infrastructure &amp;
+      </text>
+      <text x="32" y="392" fill="#8a9579" font-size="22">
+        <tspan fill="#a3e635">  </tspan>Terminal-as-Code tooling.
+      </text>
+
+      <text x="32" y="430" font-size="20">
+        <tspan fill="#a3e635">eminwux</tspan><tspan fill="#8a9579">@</tspan><tspan fill="#78dce8">linux</tspan><tspan fill="#8a9579">:</tspan><tspan fill="#f5c451">~</tspan><tspan fill="#8a9579">$ </tspan>
+      </text>
+      <rect x="135" y="412" width="12" height="22" fill="#a3e635">
+        <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+  </g>
+
+  <rect width="1200" height="630" fill="url(#vignette)"/>
+</svg>

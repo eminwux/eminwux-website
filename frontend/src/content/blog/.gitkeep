@@ -1,0 +1,3 @@
+# Placeholder so the blog collection directory exists even with no posts.
+# Add MDX posts here (e.g. ./my-first-post.mdx) following the schema in
+# /src/content/config.ts.
