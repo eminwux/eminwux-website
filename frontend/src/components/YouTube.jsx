@@ -1,16 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { VIDEOS, PLAYLISTS, SOCIAL } from "../data/site";
 import { HOME } from "../constants/testIds";
 import { Play, ListVideo, ExternalLink } from "lucide-react";
 
 const thumb = (id) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-const watch = (id) => `https://www.youtube.com/watch?v=${id}`;
 
 const VideoCard = ({ v, i }) => (
-  <a
-    href={watch(v.id)}
-    target="_blank"
-    rel="noreferrer"
+  <Link
+    to={`/video/${v.id}`}
     data-testid={`${HOME.videoCard}-${v.id}`}
     className="card-term reveal"
     style={{
@@ -54,7 +52,7 @@ const VideoCard = ({ v, i }) => (
         <span>{v.age}</span>
       </div>
     </div>
-  </a>
+  </Link>
 );
 
 const PlaylistCard = ({ p, i }) => (

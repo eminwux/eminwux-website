@@ -7,6 +7,7 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import YouTube from "./components/YouTube";
 import Contact from "./components/Contact";
+import VideoPage from "./pages/VideoPage";
 
 const Home = () => (
   <div className="crt">
@@ -27,6 +28,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/video/:id" element={<VideoPage />} />
       </Routes>
     </BrowserRouter>
   );

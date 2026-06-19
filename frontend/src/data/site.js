@@ -68,42 +68,66 @@ export const VIDEOS = [
     title: "Linux Quedó Obsoleto: La Discusión que Marcó la Historia",
     views: "200K",
     duration: "33:18",
-    age: "1 year ago"
+    age: "1 year ago",
+    lang: "es",
+    description:
+      "En 1992, Andrew Tanenbaum publicó un mensaje en Usenet que cambió el rumbo de la historia: 'Linux is obsolete'. Lo que siguió fue uno de los debates más legendarios del software libre — un duelo de visiones entre el académico del microkernel y el joven estudiante que estaba reescribiendo Unix desde cero. En este video reconstruyo la discusión original, los argumentos técnicos sobre kernels monolíticos vs microkernels, y por qué Linus Torvalds terminó cambiando el mundo a pesar de tener (técnicamente) toda la razón en contra.",
+    tags: ["Linux", "Unix", "Historia", "Kernel"]
   },
   {
     id: "RJYe_uRVJi4",
     title: "BSD: The Hidden History of the Forgotten Unix",
     views: "73K",
     duration: "39:48",
-    age: "1 year ago"
+    age: "1 year ago",
+    lang: "en",
+    description:
+      "BSD shaped the internet. It gave us sockets, TCP/IP as we know it, vi, sendmail, and the core of macOS and the PlayStation. Yet most people don't know its story. This is the hidden history of the Berkeley Software Distribution — the Unix that almost won, the lawsuit that almost killed it, and the legacy that still runs on billions of devices today. Featuring rare documents and a direct reply from Ken Thompson.",
+    tags: ["BSD", "Unix", "Berkeley", "History"]
   },
   {
     id: "tWVU7fEeH-8",
     title: "Microsoft vs. Linux: The All-Out War for the Future of Computing",
     views: "58K",
     duration: "43:06",
-    age: "1 year ago"
+    age: "1 year ago",
+    lang: "en",
+    description:
+      "From 'Linux is a cancer' to 'Microsoft loves Linux' — the most dramatic reversal in tech history. This is the full story of the war between Microsoft and the open source movement: the leaked Halloween Documents, the SCO lawsuits, the patent threats, the Steve Ballmer years, and finally the strategic surrender that turned Microsoft into one of the largest contributors to the Linux kernel.",
+    tags: ["Microsoft", "Linux", "Open Source", "History"]
   },
   {
     id: "nH6b23P-4MQ",
     title: "Cuando Linux se conectó: la historia oculta detrás del networking",
     views: "36K",
     duration: "23:29",
-    age: "11 months ago"
+    age: "11 months ago",
+    lang: "es",
+    description:
+      "Antes de que Linux fuera el sistema operativo de internet, no podía ni siquiera hacer ping. Esta es la historia de cómo el kernel aprendió a hablar TCP/IP — los primeros parches de Ross Biro, la reescritura completa de Alan Cox, las guerras de drivers con tarjetas Ethernet de los 90, y el momento en que Linux dejó de ser un experimento universitario y se convirtió en la columna vertebral de la red.",
+    tags: ["Linux", "Networking", "TCP/IP", "Historia"]
   },
   {
     id: "AJjJnbGW3OM",
     title: "Without macOS, Apple would have died: the true story",
     views: "35K",
     duration: "43:43",
-    age: "1 year ago"
+    age: "1 year ago",
+    lang: "en",
+    description:
+      "In 1996, Apple was 90 days from bankruptcy. The company's operating system was a decade behind, Copland had collapsed, and the board was desperate. The acquisition that saved Apple wasn't an acquisition at all — it was a Trojan horse named NeXT that brought Steve Jobs back and quietly replaced the soul of the Mac with Unix. This is the true story of how macOS was born, and why without it, there would be no iPhone, no App Store, and no Apple as we know it.",
+    tags: ["macOS", "NeXT", "Apple", "Unix"]
   },
   {
     id: "FscVGsYcdDQ",
     title: "GNU/Linux Terminal Language: Prompt & Streams",
     views: "5.9K",
     duration: "12:25",
-    age: "1 year ago"
+    age: "1 year ago",
+    lang: "en",
+    description:
+      "Lesson 01 of the GNU/Linux Foundations course. Before you can do anything useful in a shell, you need to understand what the prompt is actually telling you, what stdin/stdout/stderr really are, and how the kernel wires file descriptors to your keyboard and screen. We start from absolute first principles — no copy-pasting commands, no magic.",
+    tags: ["Linux", "Shell", "Tutorial", "Fundamentos"]
   }
 ];
 
