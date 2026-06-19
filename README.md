@@ -31,10 +31,11 @@ The [Deploy website to GitHub Pages](.github/workflows/deploy-pages.yml)
 workflow builds and publishes the frontend whenever a commit reaches `main`.
 It can also be started manually from the repository's **Actions** tab.
 
-The workflow sets the React public URL to the repository name so assets and
-client-side routes work when hosted at:
+The workflow builds the site for the domain root and includes the Pages CNAME
+file so assets and client-side routes work when hosted at:
 
-<https://eminwux.github.io/eminwux-website/>
+<https://eminwux.com/>
 
 The repository's Pages source must be set to **GitHub Actions** under
-**Settings > Pages** before the first deployment.
+**Settings > Pages**, with `eminwux.com` configured as the custom domain,
+before the first deployment.

@@ -41,7 +41,7 @@ jobs:
 
       - name: Build website
         env:
-          PUBLIC_URL: /${{ github.event.repository.name }}
+          PUBLIC_URL: "/"
         run: yarn build
 
       - name: Add single-page app fallback
