@@ -7,6 +7,7 @@ export const HOME = {
   contact: "contact-section",
   navHome: "nav-home",
   navAbout: "nav-about",
+  navCv: "nav-cv",
   navProjects: "nav-projects",
   navYoutube: "nav-youtube",
   navContact: "nav-contact",
