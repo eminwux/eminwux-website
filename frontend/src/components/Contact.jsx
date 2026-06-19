@@ -3,6 +3,7 @@ import { TerminalWindow, Prompt, Comment } from "./Terminal";
 import { SOCIAL, PROFILE } from "../data/site";
 import { HOME } from "../constants/testIds";
 import { Github, Twitter, Linkedin, Youtube, Mail, ArrowUpRight } from "lucide-react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const Row = ({ Icon, label, value, href, testid }) => (
   <a href={href} target="_blank" rel="noreferrer" data-testid={testid}
@@ -26,18 +27,20 @@ const Row = ({ Icon, label, value, href, testid }) => (
 );
 
 const Contact = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" data-testid={HOME.contact} className="container-x" style={{ paddingTop: 24, paddingBottom: 96 }}>
       <div className="section-h">
         <span style={{ color: "var(--accent)" }}>$</span>
-        <span>05 / contact · ./reach-out.sh</span>
+        <span>{t('contact.sectionHeading')}</span>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 22 }}>
         <TerminalWindow title="contact.sh" path="~/.ssh">
           <Prompt cmd="cat ~/.contact" />
-          <Comment># Open to OSS collabs, infra & systems work, podcasts, and good old geek chats.</Comment>
-          <Comment># Reply time: usually &lt; 48h.</Comment>
+          <Comment># {t('contact.comment1')}</Comment>
+          <Comment># {t('contact.comment2')}</Comment>
         </TerminalWindow>
 
         <div className="win">
@@ -45,14 +48,14 @@ const Contact = () => {
             <span className="dot" style={{ background: "#ff5f56" }} />
             <span className="dot" style={{ background: "#ffbd2e" }} />
             <span className="dot" style={{ background: "#27c93f" }} />
-            <span style={{ marginLeft: 8 }}>— links — ~/contacts</span>
+            <span style={{ marginLeft: 8 }}>— {t('contact.windowTitle')}</span>
           </div>
           <div>
-            <Row Icon={Mail}     label="email"    value="me@eminwux.com"             href={SOCIAL.email}   testid={HOME.socialEmail} />
-            <Row Icon={Github}   label="github"   value="github.com/eminwux"         href={SOCIAL.github}  testid={`${HOME.socialGithub}-row`} />
-            <Row Icon={Twitter}  label="x"        value="x.com/eminwux"              href={SOCIAL.twitter} testid={`${HOME.socialTwitter}-row`} />
-            <Row Icon={Linkedin} label="linkedin" value="linkedin.com/in/eminwux"    href={SOCIAL.linkedin} testid={`${HOME.socialLinkedin}-row`} />
-            <Row Icon={Youtube}  label="youtube"  value="youtube.com/@eminwux"       href={SOCIAL.youtube} testid={`${HOME.socialYoutube}-row`} />
+            <Row Icon={Mail}     label={t('contact.email')}    value="me@eminwux.com"             href={SOCIAL.email}   testid={HOME.socialEmail} />
+            <Row Icon={Github}   label={t('contact.github')}   value="github.com/eminwux"         href={SOCIAL.github}  testid={`${HOME.socialGithub}-row`} />
+            <Row Icon={Twitter}  label={t('contact.x')}        value="x.com/eminwux"              href={SOCIAL.twitter} testid={`${HOME.socialTwitter}-row`} />
+            <Row Icon={Linkedin} label={t('contact.linkedin')} value="linkedin.com/in/eminwux"    href={SOCIAL.linkedin} testid={`${HOME.socialLinkedin}-row`} />
+            <Row Icon={Youtube}  label={t('contact.youtube')}  value="youtube.com/@eminwux"       href={SOCIAL.youtube} testid={`${HOME.socialYoutube}-row`} />
           </div>
         </div>
       </div>

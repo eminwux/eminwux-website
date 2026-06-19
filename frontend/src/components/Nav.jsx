@@ -3,9 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import { HOME } from "../constants/testIds";
 import { SOCIAL } from "../data/site";
 import { Github, Twitter, Linkedin, Youtube } from "lucide-react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const Nav = () => {
   const { pathname } = useLocation();
+  const { lang, setLang, t } = useLanguage();
 
   const navLink = (to, label, testid) => {
     const isActive = pathname === to;
@@ -60,14 +62,65 @@ const Nav = () => {
         </Link>
 
         <nav className="hidden-sm" style={{ display: "flex", alignItems: "center", gap: 28 }}>
-          {navLink("/", "home", HOME.navHome)}
-          {navLink("/projects", "projects", HOME.navProjects)}
-          {navLink("/youtube", "youtube", HOME.navYoutube)}
-          {navLink("/contact", "contact", HOME.navContact)}
-          {navLink("/about", "about", HOME.navAbout)}
+          {navLink("/", t('nav.home'), HOME.navHome)}
+          {navLink("/projects", t('nav.projects'), HOME.navProjects)}
+          {navLink("/youtube", t('nav.youtube'), HOME.navYoutube)}
+          {navLink("/contact", t('nav.contact'), HOME.navContact)}
+          {navLink("/about", t('nav.about'), HOME.navAbout)}
         </nav>
 
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          {/* Language switcher */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              border: "1px solid var(--border)",
+              borderRadius: 3,
+              overflow: "hidden"
+            }}
+            aria-label="Language selector"
+          >
+            <button
+              onClick={() => setLang('en')}
+              title="Switch to English"
+              style={{
+                background: lang === 'en' ? "rgba(163,230,53,0.12)" : "transparent",
+                border: "none",
+                cursor: "pointer",
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: 11,
+                fontWeight: 700,
+                padding: "4px 8px",
+                color: lang === 'en' ? "var(--accent)" : "var(--fg-mute)",
+                letterSpacing: "0.05em",
+                transition: "all 0.15s"
+              }}
+            >
+              EN
+            </button>
+            <span style={{ color: "var(--border)", fontSize: 11, userSelect: "none" }}>|</span>
+            <button
+              onClick={() => setLang('es')}
+              title="Cambiar a Español"
+              style={{
+                background: lang === 'es' ? "rgba(163,230,53,0.12)" : "transparent",
+                border: "none",
+                cursor: "pointer",
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: 11,
+                fontWeight: 700,
+                padding: "4px 8px",
+                color: lang === 'es' ? "var(--accent)" : "var(--fg-mute)",
+                letterSpacing: "0.05em",
+                transition: "all 0.15s"
+              }}
+            >
+              ES
+            </button>
+          </div>
+
           <a href={SOCIAL.github} target="_blank" rel="noreferrer" data-testid={HOME.socialGithub} className="hover-glow" style={{ color: "var(--fg-dim)" }} aria-label="GitHub">
             <Github size={16} />
           </a>
