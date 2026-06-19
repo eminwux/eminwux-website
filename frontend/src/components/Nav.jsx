@@ -62,7 +62,7 @@ const Nav = () => {
             $_
           </span>
           <span style={{ color: "var(--fg)", fontWeight: 600, fontSize: 14 }}>
-            eminwux<span style={{ color: "var(--accent)" }}>.dev</span>
+            eminwux<span style={{ color: "var(--accent)" }}>.com</span>
           </span>
         </a>
 

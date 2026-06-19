@@ -48,7 +48,7 @@ const Contact = () => {
             <span style={{ marginLeft: 8 }}>— links — ~/contacts</span>
           </div>
           <div>
-            <Row Icon={Mail}     label="email"    value="hello@eminwux.dev"          href={SOCIAL.email}   testid={HOME.socialEmail} />
+            <Row Icon={Mail}     label="email"    value="me@eminwux.com"             href={SOCIAL.email}   testid={HOME.socialEmail} />
             <Row Icon={Github}   label="github"   value="github.com/eminwux"         href={SOCIAL.github}  testid={`${HOME.socialGithub}-row`} />
             <Row Icon={Twitter}  label="x"        value="x.com/eminwux"              href={SOCIAL.twitter} testid={`${HOME.socialTwitter}-row`} />
             <Row Icon={Linkedin} label="linkedin" value="linkedin.com/in/eminwux"    href={SOCIAL.linkedin} testid={`${HOME.socialLinkedin}-row`} />

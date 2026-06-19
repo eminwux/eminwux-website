@@ -229,13 +229,17 @@ html, body, #root {
 
 /* ASCII art */
 .ascii {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  line-height: 1.1;
+  font-family: ui-monospace, 'Courier New', Courier, monospace;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0;
   color: var(--accent);
   white-space: pre;
-  opacity: 0.85;
-  text-shadow: 0 0 8px var(--accent-glow);
+  opacity: 0.9;
+  text-shadow: 0 0 10px var(--accent-glow);
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  font-weight: 700;
 }
 
 /* Tag */
