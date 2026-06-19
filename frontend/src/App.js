@@ -14,18 +14,19 @@ import { VIDEOS, PROJECTS, STACK, PROFILE, SOCIAL } from "./data/site";
 // Stats Bar Component
 const StatsBar = () => {
   const stats = [
-    { icon: TrendingUp, label: "400K+", sublabel: "YouTube views" },
-    { icon: Terminal, label: "2", sublabel: "active OSS projects" },
+    { icon: Award, label: "Linux", sublabel: "Veteran" },
+    { icon: GraduationCap, label: "Unix", sublabel: "Historian" },
     { icon: Briefcase, label: "20+", sublabel: "years experience" },
-    { icon: GraduationCap, label: "Executive", sublabel: "MBA" }
+    { icon: TrendingUp, label: "400K+", sublabel: "YouTube views" },
+    { icon: Terminal, label: "2", sublabel: "active OSS projects" }
   ];
 
   return (
     <div className="reveal" style={{ animationDelay: "0.1s" }}>
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-        gap: 16,
+        gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+        gap: 14,
         padding: "24px 0",
         borderTop: "1px dashed var(--border)",
         borderBottom: "1px dashed var(--border)"
