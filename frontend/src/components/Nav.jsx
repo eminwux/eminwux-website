@@ -1,47 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { HOME } from "../constants/testIds";
 import { SOCIAL } from "../data/site";
 import { Github, Twitter, Linkedin, Youtube } from "lucide-react";
 
 const Nav = () => {
-  const [active, setActive] = useState("");
   const { pathname } = useLocation();
-  const onHome = pathname === "/";
-  const isAbout = pathname === "/about";
 
-  useEffect(() => {
-    if (!onHome) { setActive(""); return; }
-    const onScroll = () => {
-      const sections = ["projects", "youtube", "contact"];
-      let current = "";
-      for (const s of sections) {
-        const el = document.getElementById(s);
-        if (el && el.getBoundingClientRect().top <= 120) current = s;
-      }
-      setActive(current);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [onHome]);
-
-  const sectionLink = (id, label, testid) => (
-    <Link
-      key={id}
-      to={{ pathname: "/", hash: `#${id}` }}
-      data-testid={testid}
-      className="link-u"
-      style={{
-        fontSize: 13,
-        color: active === id ? "var(--accent)" : "var(--fg-dim)",
-        transition: "color 0.2s",
-        textDecoration: "none"
-      }}
-    >
-      <span style={{ color: "var(--fg-mute)" }}>~/</span>{label}
-    </Link>
-  );
+  const navLink = (to, label, testid) => {
+    const isActive = pathname === to;
+    return (
+      <Link
+        key={to}
+        to={to}
+        data-testid={testid}
+        className="link-u"
+        style={{
+          fontSize: 13,
+          color: isActive ? "var(--accent)" : "var(--fg-dim)",
+          transition: "color 0.2s",
+          textDecoration: "none"
+        }}
+      >
+        <span style={{ color: "var(--fg-mute)" }}>~/</span>{label}
+      </Link>
+    );
+  };
 
   return (
     <header
@@ -57,7 +41,7 @@ const Nav = () => {
     >
       <div className="container-x" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 24px" }}>
         <Link
-          to={{ pathname: "/", hash: "#top" }}
+          to="/"
           data-testid={HOME.navHome}
           style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}
         >
@@ -76,22 +60,11 @@ const Nav = () => {
         </Link>
 
         <nav className="hidden-sm" style={{ display: "flex", alignItems: "center", gap: 28 }}>
-          <Link
-            to="/about"
-            data-testid={HOME.navAbout}
-            className="link-u"
-            style={{
-              fontSize: 13,
-              color: isAbout ? "var(--accent)" : "var(--fg-dim)",
-              transition: "color 0.2s",
-              textDecoration: "none"
-            }}
-          >
-            <span style={{ color: "var(--fg-mute)" }}>~/</span>about
-          </Link>
-          {sectionLink("projects", "projects", HOME.navProjects)}
-          {sectionLink("youtube", "youtube", HOME.navYoutube)}
-          {sectionLink("contact", "contact", HOME.navContact)}
+          {navLink("/", "home", HOME.navHome)}
+          {navLink("/projects", "projects", HOME.navProjects)}
+          {navLink("/youtube", "youtube", HOME.navYoutube)}
+          {navLink("/contact", "contact", HOME.navContact)}
+          {navLink("/about", "about", HOME.navAbout)}
         </nav>
 
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>

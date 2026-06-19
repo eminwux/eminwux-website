@@ -312,5 +312,9 @@ html, body, #root {
 /* Mobile typography fixes */
 @media (max-width: 640px) {
   .win-body { padding: 16px; font-size: 13px; }
-  .ascii { font-size: 7px; }
+  .ascii { font-size: clamp(8px, 2.5vw, 10px); }
+}
+
+@media (max-width: 480px) {
+  .ascii { font-size: 9px; }
 }
