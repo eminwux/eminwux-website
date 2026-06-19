@@ -114,6 +114,11 @@ const YouTube = () => {
           <div style={{ color: "var(--fg-dim)", fontSize: 13, marginTop: 4 }}>
             {t('youtube.channelDesc')}
           </div>
+          <div style={{ marginTop: 10 }}>
+            <span className="tag" style={{ borderColor: "var(--accent)", color: "var(--accent)" }}>
+              ● {t('youtube.openToCollab')}
+            </span>
+          </div>
         </div>
         <a
           href={SOCIAL.youtube}
