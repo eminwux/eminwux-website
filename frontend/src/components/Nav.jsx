@@ -1,38 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { HOME } from "../constants/testIds";
 import { SOCIAL } from "../data/site";
-import { Github, Twitter, Linkedin, Youtube, Mail } from "lucide-react";
+import { Github, Twitter, Linkedin, Youtube } from "lucide-react";
 
 const Nav = () => {
-  const [open, setOpen] = useState(false);
-  const [hash, setHash] = useState("");
+  const [active, setActive] = useState("");
+  const { pathname } = useLocation();
+  const onHome = pathname === "/";
+  const isAbout = pathname === "/about";
 
   useEffect(() => {
+    if (!onHome) { setActive(""); return; }
     const onScroll = () => {
-      const sections = ["about", "projects", "youtube", "contact"];
+      const sections = ["projects", "youtube", "contact"];
       let current = "";
       for (const s of sections) {
         const el = document.getElementById(s);
         if (el && el.getBoundingClientRect().top <= 120) current = s;
       }
-      setHash(current);
+      setActive(current);
     };
+    onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [onHome]);
 
-  const link = (id, label, testid) => (
+  const sectionLink = (id, label, testid) => (
     <Link
       key={id}
       to={{ pathname: "/", hash: `#${id}` }}
       data-testid={testid}
-      onClick={() => setOpen(false)}
       className="link-u"
       style={{
         fontSize: 13,
-        color: hash === id ? "var(--accent)" : "var(--fg-dim)",
-        transition: "color 0.2s"
+        color: active === id ? "var(--accent)" : "var(--fg-dim)",
+        transition: "color 0.2s",
+        textDecoration: "none"
       }}
     >
       <span style={{ color: "var(--fg-mute)" }}>~/</span>{label}
@@ -52,7 +56,11 @@ const Nav = () => {
       }}
     >
       <div className="container-x" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 24px" }}>
-        <Link to={{ pathname: "/", hash: "#top" }} data-testid={HOME.navHome} style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+        <Link
+          to={{ pathname: "/", hash: "#top" }}
+          data-testid={HOME.navHome}
+          style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}
+        >
           <span style={{
             width: 28, height: 28, borderRadius: 4,
             background: "var(--bg-elev)", border: "1px solid var(--accent)",
@@ -68,10 +76,22 @@ const Nav = () => {
         </Link>
 
         <nav className="hidden-sm" style={{ display: "flex", alignItems: "center", gap: 28 }}>
-          {link("about", "about", HOME.navAbout)}
-          {link("projects", "projects", HOME.navProjects)}
-          {link("youtube", "youtube", HOME.navYoutube)}
-          {link("contact", "contact", HOME.navContact)}
+          <Link
+            to="/about"
+            data-testid={HOME.navAbout}
+            className="link-u"
+            style={{
+              fontSize: 13,
+              color: isAbout ? "var(--accent)" : "var(--fg-dim)",
+              transition: "color 0.2s",
+              textDecoration: "none"
+            }}
+          >
+            <span style={{ color: "var(--fg-mute)" }}>~/</span>about
+          </Link>
+          {sectionLink("projects", "projects", HOME.navProjects)}
+          {sectionLink("youtube", "youtube", HOME.navYoutube)}
+          {sectionLink("contact", "contact", HOME.navContact)}
         </nav>
 
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
