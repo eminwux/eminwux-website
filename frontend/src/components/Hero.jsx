@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { TerminalWindow, Prompt } from "./Terminal";
 import { PROFILE } from "../data/site";
 import { HOME } from "../constants/testIds";
@@ -15,7 +15,49 @@ const ASCII = `
 const Hero = () => {
   const { t } = useLanguage();
   const [shown, setShown] = useState(0);
+  const asciiRef = useRef(null);
 
+  // ── ASCII art: scale to fit container on mobile ────────────────────
+  useEffect(() => {
+    const fit = () => {
+      const el = asciiRef.current;
+      if (!el) return;
+
+      // 1. Reset any previous transform / inline fontSize so we can measure
+      el.style.transform = "none";
+      el.style.transformOrigin = "";
+      el.style.marginBottom = "";
+      el.style.fontSize = "14px"; // base desktop size
+
+      const parent = el.parentElement;
+      if (!parent) return;
+
+      // 2. Measure at base size
+      const containerWidth = parent.offsetWidth;
+      const naturalWidth = el.scrollWidth;
+
+      // 3. If the art overflows, scale it down via CSS transform
+      //    (avoids mobile minimum-font-size restriction)
+      if (naturalWidth > containerWidth && containerWidth > 0) {
+        const scale = containerWidth / naturalWidth;
+        el.style.transform = `scale(${scale})`;
+        el.style.transformOrigin = "left top";
+        // Remove the excess vertical space that transform leaves behind
+        const excess = el.offsetHeight * (1 - scale);
+        el.style.marginBottom = `-${excess}px`;
+      }
+    };
+
+    // Small delay so the DOM has finished its first paint
+    const timer = setTimeout(fit, 60);
+    window.addEventListener("resize", fit);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", fit);
+    };
+  }, []);
+
+  // ── Terminal animation ─────────────────────────────────────────────
   const lines = [
     { delay: 100,  type: "prompt", cmd: "whoami" },
     { delay: 600,  type: "out",    text: PROFILE.name },
@@ -40,7 +82,10 @@ const Hero = () => {
   return (
     <section id="top" data-testid={HOME.hero} className="container-x" style={{ paddingTop: 56, paddingBottom: 72 }}>
       <div className="reveal" style={{ animationDelay: "0.05s" }}>
-        <pre className="ascii" aria-hidden="true">{ASCII}</pre>
+        {/* overflow:hidden clips the pre's layout footprint while transform scales visually */}
+        <div style={{ overflowX: "hidden", width: "100%" }}>
+          <pre ref={asciiRef} className="ascii" aria-hidden="true">{ASCII}</pre>
+        </div>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 32, marginTop: 28 }}>
@@ -80,8 +125,8 @@ const Hero = () => {
           <TerminalWindow title="zsh" path="~/eminwux">
             {lines.slice(0, shown).map((l, i) => {
               if (l.type === "prompt") return <Prompt key={i} cmd={l.cmd} />;
-              if (l.type === "out") return <div key={i} style={{ color: "var(--fg)", marginBottom: 4 }}>{l.text}</div>;
-              if (l.type === "tag") return (
+              if (l.type === "out")    return <div key={i} style={{ color: "var(--fg)", marginBottom: 4 }}>{l.text}</div>;
+              if (l.type === "tag")    return (
                 <div key={i} style={{ color: "var(--amber)", marginBottom: 4 }}>
                   <span className="str">&quot;{l.text}&quot;</span>
                 </div>
