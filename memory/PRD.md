@@ -41,6 +41,14 @@
 - ✅ data-testid coverage for all interactive elements
 - ✅ Tested: 100% frontend pass (iteration_1.json)
 
+## Implemented (continued)
+- ✅ i18n EN/ES multilanguage (LanguageContext + translations.js)
+  - Auto-detects browser language (navigator.language)
+  - Persists user choice in localStorage
+  - Terminal-style EN|ES toggle in Nav
+  - Translations: nav, hero, bio, stats, projects, YouTube, contact, about, video page
+  - Tested: EN↔ES toggle, auto-detect with es-ES locale
+
 ## Backlog
 - P1: Dynamic YouTube feed via YouTube Data API (user requires API key)
 - P1: Blog/notes section (MDX articles about Linux/containers)
@@ -48,7 +56,6 @@
 - P2: RSS feed for YouTube uploads (mirror via youtube RSS)
 - P2: Light/CRT theme toggle
 - P3: Open Graph image generator
-- P3: i18n EN/ES toggle (channel is bilingual)
 
 ## Next Actions
 - Decide whether to add dynamic YouTube fetching (needs YouTube Data API key)

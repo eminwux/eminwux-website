@@ -4,6 +4,7 @@ import { CV } from "../data/cv";
 import { PROFILE, SOCIAL, STACK } from "../data/site";
 import { TerminalWindow, Prompt, Comment } from "../components/Terminal";
 import Nav from "../components/Nav";
+import { useLanguage } from "../i18n/LanguageContext";
 import {
   ArrowLeft, Briefcase, GraduationCap,
   Award, Languages, Wrench, MapPin, Calendar, Mail, Linkedin
@@ -97,11 +98,15 @@ const ExperienceItem = ({ job, i }) => (
 );
 
 const AboutPage = () => {
+  const { t } = useLanguage();
+
   useEffect(() => {
     document.title = `about — ${PROFILE.name}`;
     window.scrollTo(0, 0);
     return () => { document.title = "eminwux.com — Emiliano Spinella"; };
   }, []);
+
+  const bio = t('bio');
 
   return (
     <div className="crt">
@@ -118,7 +123,7 @@ const AboutPage = () => {
             marginBottom: 22
           }}
         >
-          <ArrowLeft size={14} /> cd ~
+          <ArrowLeft size={14} /> {t('about.back')}
         </Link>
 
         {/* Header */}
@@ -138,9 +143,9 @@ const AboutPage = () => {
                 ❯ {CV.headline}
               </div>
 
-              {/* Personal bio first */}
+              {/* Personal bio */}
               <div style={{ marginBottom: 18 }}>
-                {PROFILE.bio.map((p, i) => (
+                {(Array.isArray(bio) ? bio : [bio]).map((p, i) => (
                   <p key={i} style={{
                     color: "var(--fg)", fontSize: 14, lineHeight: 1.8,
                     margin: "0 0 12px 0", fontFamily: "'IBM Plex Mono', monospace"
@@ -152,7 +157,7 @@ const AboutPage = () => {
 
               {/* Professional summary */}
               <div style={{ paddingTop: 14, borderTop: "1px dashed var(--border)" }}>
-                <Comment># professional summary</Comment>
+                <Comment>{t('about.professional')}</Comment>
                 {CV.summary.map((p, i) => (
                   <p key={i} style={{
                     color: "var(--fg-dim)", fontSize: 13, lineHeight: 1.8,
@@ -218,7 +223,7 @@ const AboutPage = () => {
 
         {/* Experience */}
         <section style={{ marginTop: 56 }}>
-          <SectionTitle n="01" label="experience · 20+ years" Icon={Briefcase} />
+          <SectionTitle n="01" label={t('about.experience')} Icon={Briefcase} />
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {CV.experience.map((job, i) => (
               <ExperienceItem key={`${job.company}-${i}`} job={job} i={i} />
@@ -228,7 +233,7 @@ const AboutPage = () => {
 
         {/* Education */}
         <section style={{ marginTop: 32 }}>
-          <SectionTitle n="02" label="education" Icon={GraduationCap} />
+          <SectionTitle n="02" label={t('about.education')} Icon={GraduationCap} />
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 14 }}>
             {CV.education.map((e, i) => (
               <li key={i} data-testid={`about-edu-${i}`} className="card-term reveal" style={{ animationDelay: `${0.04 * i}s` }}>
@@ -249,7 +254,7 @@ const AboutPage = () => {
 
         {/* Certifications */}
         <section style={{ marginTop: 32 }}>
-          <SectionTitle n="03" label="certifications" Icon={Award} />
+          <SectionTitle n="03" label={t('about.certifications')} Icon={Award} />
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 10 }}>
             {CV.certifications.map((c, i) => (
               <li key={i} className="card-term reveal" style={{ animationDelay: `${0.05 * i}s` }}>
@@ -264,10 +269,10 @@ const AboutPage = () => {
 
         {/* Skills */}
         <section style={{ marginTop: 32 }}>
-          <SectionTitle n="04" label="skills" Icon={Wrench} />
+          <SectionTitle n="04" label={t('about.skills')} Icon={Wrench} />
           <div className="card-term">
             <div style={{ color: "var(--fg-mute)", fontSize: 12, marginBottom: 12, fontFamily: "'JetBrains Mono', monospace" }}>
-              # top skills
+              {t('about.topSkills')}
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 18 }}>
               {CV.topSkills.map((s) => (
@@ -280,7 +285,7 @@ const AboutPage = () => {
               ))}
             </div>
             <div style={{ color: "var(--fg-mute)", fontSize: 12, marginBottom: 12, fontFamily: "'JetBrains Mono', monospace" }}>
-              # technical stack
+              {t('about.techStack')}
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {CV.skills.map((s) => (
@@ -297,7 +302,7 @@ const AboutPage = () => {
 
         {/* Languages */}
         <section style={{ marginTop: 32 }}>
-          <SectionTitle n="05" label="languages · locale -a" Icon={Languages} />
+          <SectionTitle n="05" label={t('about.languages')} Icon={Languages} />
           <div className="card-term">
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 10 }}>
               {CV.languages.map((l) => (
@@ -322,7 +327,7 @@ const AboutPage = () => {
         }}>
           <span># EOF · {PROFILE.name}</span>
           <Link to="/" className="link-u" style={{ color: "var(--accent)", textDecoration: "none" }}>
-            cd ~ ↩
+            {t('about.back')} ↩
           </Link>
         </footer>
       </main>

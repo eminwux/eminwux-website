@@ -2,9 +2,21 @@ import React from "react";
 import { PROJECTS } from "../data/site";
 import { HOME } from "../constants/testIds";
 import { ExternalLink, Github, Terminal as TermIcon } from "lucide-react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const ProjectCard = ({ p }) => {
+  const { t } = useLanguage();
   const testid = p.id === "kukeon" ? HOME.projectKukeon : HOME.projectSbsh;
+
+  // Use translated data if available, fall back to original
+  const tagline = t(`projects.${p.id}.tagline`);
+  const description = t(`projects.${p.id}.description`);
+  const bullets = t(`projects.${p.id}.bullets`);
+
+  const displayTagline = (typeof tagline === 'string' && tagline !== `projects.${p.id}.tagline`) ? tagline : p.tagline;
+  const displayDescription = (typeof description === 'string' && description !== `projects.${p.id}.description`) ? description : p.description;
+  const displayBullets = (Array.isArray(bullets)) ? bullets : p.bullets;
+
   return (
     <article data-testid={testid} className="card-term reveal" style={{ animationDelay: "0.1s" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
@@ -20,7 +32,7 @@ const ProjectCard = ({ p }) => {
             <span style={{ color: "var(--fg-mute)", fontSize: 13 }}>· {p.domain}</span>
           </div>
           <div style={{ color: "var(--accent)", fontSize: 13, marginBottom: 14 }}>
-            ❯ {p.tagline}
+            ❯ {displayTagline}
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-end" }}>
@@ -32,7 +44,7 @@ const ProjectCard = ({ p }) => {
       </div>
 
       <p style={{ color: "var(--fg-dim)", fontSize: 14, lineHeight: 1.7, margin: "0 0 16px 0" }}>
-        {p.description}
+        {displayDescription}
       </p>
 
       <ul style={{
@@ -43,7 +55,7 @@ const ProjectCard = ({ p }) => {
         gridTemplateColumns: "1fr",
         gap: 6
       }}>
-        {p.bullets.map((b, i) => (
+        {displayBullets.map((b, i) => (
           <li key={i} style={{ color: "var(--fg)", fontSize: 13, display: "flex", gap: 10 }}>
             <span style={{ color: "var(--accent)" }}>→</span>
             <span>{b}</span>
@@ -62,7 +74,7 @@ const ProjectCard = ({ p }) => {
           <ExternalLink size={13} /> {p.domain}
         </a>
         <a href={p.repo} target="_blank" rel="noreferrer" className="link-u" style={{ fontSize: 13, color: "var(--fg-dim)", display: "inline-flex", alignItems: "center", gap: 6 }}>
-          <Github size={13} /> source
+          <Github size={13} /> {t('projects.source')}
         </a>
       </div>
     </article>
@@ -70,11 +82,13 @@ const ProjectCard = ({ p }) => {
 };
 
 const Projects = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="projects" data-testid={HOME.projects} className="container-x" style={{ paddingTop: 24, paddingBottom: 72 }}>
       <div className="section-h">
         <span style={{ color: "var(--accent)" }}>$</span>
-        <span>03 / projects · ls -la ~/oss</span>
+        <span>{t('projects.sectionHeading')}</span>
       </div>
 
       <div style={{

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { TerminalWindow, Prompt, Comment } from "./Terminal";
+import { TerminalWindow, Prompt } from "./Terminal";
 import { PROFILE } from "../data/site";
 import { HOME } from "../constants/testIds";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const ASCII = `
 █████  █   █  █  █   █  █     █  █   █  █   █
@@ -11,25 +12,29 @@ const ASCII = `
 █████  █   █  █  █   █   █   █    ███    █  █
 `;
 
-const lines = [
-  { delay: 100,  type: "prompt", cmd: "whoami" },
-  { delay: 600,  type: "out",    text: PROFILE.name },
-  { delay: 900,  type: "prompt", cmd: "cat /etc/role" },
-  { delay: 1400, type: "out",    text: PROFILE.role },
-  { delay: 1700, type: "prompt", cmd: "uname -a" },
-  { delay: 2200, type: "out",    text: `Linux ${PROFILE.location.toLowerCase()} 6.x #1 SMP PREEMPT_DYNAMIC x86_64 GNU/Linux` },
-  { delay: 2500, type: "prompt", cmd: "echo $TAGLINE" },
-  { delay: 3000, type: "tag",    text: PROFILE.tagline }
-];
-
 const Hero = () => {
+  const { t } = useLanguage();
   const [shown, setShown] = useState(0);
 
+  const lines = [
+    { delay: 100,  type: "prompt", cmd: "whoami" },
+    { delay: 600,  type: "out",    text: PROFILE.name },
+    { delay: 900,  type: "prompt", cmd: "cat /etc/role" },
+    { delay: 1400, type: "out",    text: t('hero.role') },
+    { delay: 1700, type: "prompt", cmd: "uname -a" },
+    { delay: 2200, type: "out",    text: `Linux ${PROFILE.location.toLowerCase()} 6.x #1 SMP PREEMPT_DYNAMIC x86_64 GNU/Linux` },
+    { delay: 2500, type: "prompt", cmd: "echo $TAGLINE" },
+    { delay: 3000, type: "tag",    text: t('hero.tagline') }
+  ];
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const timers = lines.map((l, i) =>
       setTimeout(() => setShown((s) => Math.max(s, i + 1)), l.delay)
     );
     return () => timers.forEach(clearTimeout);
+  // Run only on mount; lines text updates reactively via re-render
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -41,9 +46,9 @@ const Hero = () => {
       <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 32, marginTop: 28 }}>
         <div className="reveal" style={{ animationDelay: "0.15s" }}>
           <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 14 }}>
-            <span className="tag" style={{ borderColor: "var(--accent)", color: "var(--accent)" }}>● online</span>
+            <span className="tag" style={{ borderColor: "var(--accent)", color: "var(--accent)" }}>● {t('hero.online')}</span>
             <span className="tag">{PROFILE.location}</span>
-            <span className="tag">open to collabs</span>
+            <span className="tag">{t('hero.openToCollabs')}</span>
           </div>
 
           <h1 style={{
@@ -66,7 +71,7 @@ const Hero = () => {
             maxWidth: 640,
             lineHeight: 1.6
           }}>
-            <span style={{ color: "var(--accent)" }}>$</span> {PROFILE.tagline}
+            <span style={{ color: "var(--accent)" }}>$</span> {t('hero.tagline')}
             <span className="caret" />
           </p>
         </div>

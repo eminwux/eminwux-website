@@ -4,9 +4,11 @@ import { VIDEOS, SOCIAL } from "../data/site";
 import { TerminalWindow, Prompt, Comment } from "../components/Terminal";
 import Nav from "../components/Nav";
 import { ArrowLeft, ExternalLink, Play, Youtube as YT } from "lucide-react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const VideoPage = () => {
   const { id } = useParams();
+  const { t } = useLanguage();
   const idx = VIDEOS.findIndex((v) => v.id === id);
   const v = VIDEOS[idx];
 
@@ -36,7 +38,7 @@ const VideoPage = () => {
             marginBottom: 24
           }}
         >
-          <ArrowLeft size={14} /> cd ~/youtube
+          <ArrowLeft size={14} /> {t('video.back')}
         </Link>
 
         <div className="reveal" style={{ animationDelay: "0.05s" }}>
@@ -45,7 +47,7 @@ const VideoPage = () => {
               ● {v.lang === "es" ? "español" : "english"}
             </span>
             <span className="tag">{v.duration}</span>
-            <span className="tag">{v.views} views</span>
+            <span className="tag">{v.views} {t('youtube.views')}</span>
             <span className="tag">{v.age}</span>
           </div>
 
@@ -99,8 +101,8 @@ const VideoPage = () => {
               {v.description}
             </div>
             <div style={{ marginTop: 22, display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {v.tags.map((t) => (
-                <span key={t} className="tag">#{t.toLowerCase()}</span>
+              {v.tags.map((t_) => (
+                <span key={t_} className="tag">#{t_.toLowerCase()}</span>
               ))}
             </div>
             <div style={{ marginTop: 22, paddingTop: 14, borderTop: "1px dashed var(--border)", display: "flex", flexWrap: "wrap", gap: 16 }}>
@@ -112,7 +114,7 @@ const VideoPage = () => {
                 className="link-u"
                 style={{ color: "var(--accent)", fontSize: 13, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}
               >
-                <YT size={14} /> watch on youtube <ExternalLink size={12} />
+                <YT size={14} /> {t('video.watchOnYoutube')} <ExternalLink size={12} />
               </a>
               <a
                 href={SOCIAL.youtube}
@@ -121,7 +123,7 @@ const VideoPage = () => {
                 className="link-u"
                 style={{ color: "var(--fg-dim)", fontSize: 13, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}
               >
-                subscribe to @eminwux
+                {t('video.subscribe')}
               </a>
             </div>
           </TerminalWindow>
@@ -143,7 +145,7 @@ const VideoPage = () => {
             style={{ textDecoration: "none", display: "block" }}
           >
             <div style={{ color: "var(--fg-mute)", fontSize: 11, marginBottom: 6, fontFamily: "'JetBrains Mono', monospace" }}>
-              ◀ prev · ./{prev.id}
+              ◄ prev · ./{prev.id}
             </div>
             <div style={{ color: "var(--fg)", fontSize: 14, lineHeight: 1.5 }}>
               {prev.title}
@@ -156,7 +158,7 @@ const VideoPage = () => {
             style={{ textDecoration: "none", display: "block", textAlign: "right" }}
           >
             <div style={{ color: "var(--fg-mute)", fontSize: 11, marginBottom: 6, fontFamily: "'JetBrains Mono', monospace" }}>
-              next ▶ · ./{next.id}
+              next ► · ./{next.id}
             </div>
             <div style={{ color: "var(--fg)", fontSize: 14, lineHeight: 1.5 }}>
               {next.title}
