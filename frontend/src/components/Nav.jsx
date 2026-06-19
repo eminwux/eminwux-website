@@ -1,53 +1,57 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { HOME } from "../constants/testIds";
 import { SOCIAL } from "../data/site";
 import { Github, Twitter, Linkedin, Youtube, Menu, X } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 
 const Nav = () => {
-  const { pathname } = useLocation();
   const { lang, setLang, t } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [pathname, setPathname] = useState("");
 
-  // Close mobile menu whenever the route changes
+  // Read current path client-side (Astro islands)
   useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+    setPathname(window.location.pathname);
+  }, []);
 
-  // Helper: desktop nav link
+  const isActive = (to) => {
+    if (to === "/") return pathname === "/" || pathname === "";
+    return pathname === to || pathname.startsWith(to + "/");
+  };
+
+  // Desktop nav link
   const navLink = (to, label, testid) => {
-    const isActive = pathname === to;
+    const active = isActive(to);
     return (
-      <Link
+      <a
         key={to}
-        to={to}
+        href={to}
         data-testid={testid}
         className="link-u"
         style={{
           fontSize: 13,
-          color: isActive ? "var(--accent)" : "var(--fg-dim)",
+          color: active ? "var(--accent)" : "var(--fg-dim)",
           transition: "color 0.2s",
           textDecoration: "none"
         }}
       >
         <span style={{ color: "var(--fg-mute)" }}>~/</span>{label}
-      </Link>
+      </a>
     );
   };
 
-  // Helper: mobile nav link (larger touch target)
+  // Mobile nav link
   const mobileNavLink = (to, label, testid) => {
-    const isActive = pathname === to;
+    const active = isActive(to);
     return (
-      <Link
+      <a
         key={to}
-        to={to}
+        href={to}
         data-testid={testid}
         onClick={() => setMenuOpen(false)}
         style={{
           fontSize: 15,
-          color: isActive ? "var(--accent)" : "var(--fg-dim)",
+          color: active ? "var(--accent)" : "var(--fg-dim)",
           transition: "color 0.2s",
           textDecoration: "none",
           display: "flex",
@@ -58,16 +62,16 @@ const Nav = () => {
       >
         <span style={{ color: "var(--fg-mute)", marginRight: 2 }}>~/</span>
         <span>{label}</span>
-        {isActive && (
+        {active && (
           <span style={{ marginLeft: "auto", color: "var(--accent)", fontSize: 10 }}>
             ● active
           </span>
         )}
-      </Link>
+      </a>
     );
   };
 
-  // Reusable language switcher JSX
+  // Language switcher
   const langSwitcher = (
     <div
       style={{
@@ -81,6 +85,7 @@ const Nav = () => {
       aria-label="Language selector"
     >
       <button
+        data-testid="lang-en"
         onClick={() => setLang('en')}
         title="Switch to English"
         style={{
@@ -100,6 +105,7 @@ const Nav = () => {
       </button>
       <span style={{ color: "var(--border)", fontSize: 11, userSelect: "none" }}>|</span>
       <button
+        data-testid="lang-es"
         onClick={() => setLang('es')}
         title="Cambiar a Español"
         style={{
@@ -132,7 +138,6 @@ const Nav = () => {
         borderBottom: "1px solid var(--border-soft)"
       }}
     >
-      {/* ── Main nav bar ─────────────────────────────────────────── */}
       <div
         className="container-x"
         style={{
@@ -143,8 +148,8 @@ const Nav = () => {
         }}
       >
         {/* Logo */}
-        <Link
-          to="/"
+        <a
+          href="/"
           data-testid={HOME.navHome}
           style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}
         >
@@ -160,25 +165,20 @@ const Nav = () => {
           <span style={{ color: "var(--fg)", fontWeight: 600, fontSize: 14 }}>
             eminwux<span style={{ color: "var(--accent)" }}>.com</span>
           </span>
-        </Link>
+        </a>
 
-        {/* Desktop: nav links (hidden on mobile) */}
-        <nav
-          className="hidden-sm"
-          style={{ display: "flex", alignItems: "center", gap: 28 }}
-        >
+        {/* Desktop nav */}
+        <nav className="hidden-sm" style={{ display: "flex", alignItems: "center", gap: 28 }}>
           {navLink("/",          t('nav.home'),     HOME.navHome)}
+          {navLink("/blog",      t('nav.blog'),     "nav-blog")}
           {navLink("/youtube",   t('nav.youtube'),  HOME.navYoutube)}
           {navLink("/projects",  t('nav.projects'), HOME.navProjects)}
           {navLink("/about",     t('nav.about'),    HOME.navAbout)}
           {navLink("/contact",   t('nav.contact'),  HOME.navContact)}
         </nav>
 
-        {/* Desktop: language switcher + social icons (hidden on mobile) */}
-        <div
-          className="hidden-sm"
-          style={{ display: "flex", alignItems: "center", gap: 14 }}
-        >
+        {/* Desktop: lang + social */}
+        <div className="hidden-sm" style={{ display: "flex", alignItems: "center", gap: 14 }}>
           {langSwitcher}
           <a href={SOCIAL.github}   target="_blank" rel="noreferrer" data-testid={HOME.socialGithub}   className="hover-glow" style={{ color: "var(--fg-dim)" }} aria-label="GitHub">
             <Github size={16} />
@@ -194,7 +194,7 @@ const Nav = () => {
           </a>
         </div>
 
-        {/* Mobile: hamburger button (hidden on desktop via CSS) */}
+        {/* Mobile hamburger */}
         <button
           className="mobile-menu-btn"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -217,7 +217,6 @@ const Nav = () => {
         </button>
       </div>
 
-      {/* ── Mobile dropdown menu ──────────────────────────────────── */}
       {menuOpen && (
         <div
           style={{
@@ -228,16 +227,15 @@ const Nav = () => {
             padding: "4px 24px 20px"
           }}
         >
-          {/* Nav links */}
           <div style={{ display: "flex", flexDirection: "column" }}>
             {mobileNavLink("/",         t('nav.home'),     HOME.navHome)}
+            {mobileNavLink("/blog",     t('nav.blog'),     "nav-blog-m")}
             {mobileNavLink("/youtube",  t('nav.youtube'),  HOME.navYoutube)}
             {mobileNavLink("/projects", t('nav.projects'), HOME.navProjects)}
             {mobileNavLink("/about",    t('nav.about'),    HOME.navAbout)}
             {mobileNavLink("/contact",  t('nav.contact'),  HOME.navContact)}
           </div>
 
-          {/* Language switcher + social icons row */}
           <div
             style={{
               marginTop: 16,
@@ -267,12 +265,10 @@ const Nav = () => {
       )}
 
       <style>{`
-        /* Hide desktop nav + social on mobile */
         @media (max-width: 640px) {
           .hidden-sm { display: none !important; }
           .mobile-menu-btn { display: flex !important; }
         }
-        /* Hide mobile hamburger on desktop */
         @media (min-width: 641px) {
           .mobile-menu-btn { display: none !important; }
         }

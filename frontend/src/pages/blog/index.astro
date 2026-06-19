@@ -1,0 +1,234 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavIsland from '../../islands/NavIsland.jsx';
+import { getCollection } from 'astro:content';
+
+// Load all non-draft posts, newest first
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const allTags = Array.from(new Set(posts.flatMap((p) => p.data.tags))).sort();
+const langs = Array.from(new Set(posts.map((p) => p.data.lang))).sort();
+
+const dateFmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' });
+---
+<BaseLayout
+  title="blog"
+  description="Writings on Linux, Unix, containers, terminals and the history of the systems we use every day — by Emiliano Spinella."
+>
+  <NavIsland client:load />
+
+  <main class="container-x" style="padding-top: 32px; padding-bottom: 96px; max-width: 980px;">
+    <div class="reveal" style="margin-bottom: 28px;">
+      <div class="section-h">
+        <span style="color: var(--accent)">$</span>
+        <span>ls -la ~/blog · find . -name '*.md'</span>
+      </div>
+      <h1 style="font-family: 'JetBrains Mono', monospace; font-size: clamp(28px, 4vw, 40px); font-weight: 700; color: var(--fg); margin: 0 0 8px 0;">
+        <span style="color: var(--accent)">~/</span>blog
+      </h1>
+      <p style="color: var(--fg-dim); font-size: 14px; margin: 0; font-family: 'IBM Plex Mono', monospace;">
+        Notes on Linux, Unix, containers, terminals and the long, weird history of computing.
+      </p>
+    </div>
+
+    {/* Search input — Pagefind UI mounts here */}
+    <div class="reveal" style="margin: 28px 0 24px;">
+      <input
+        id="blog-search"
+        type="search"
+        placeholder="$ grep -ri 'query' ~/blog/"
+        data-testid="blog-search-input"
+        style="width: 100%; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 3px; padding: 12px 14px; color: var(--fg); font-family: 'JetBrains Mono', monospace; font-size: 13px; outline: none;"
+      />
+      <div id="blog-search-results" style="margin-top: 12px;"></div>
+    </div>
+
+    {/* Filters */}
+    {posts.length > 0 && (
+      <div class="reveal" style="margin-bottom: 28px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+          <span style="color: var(--fg-mute); font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase;">lang:</span>
+          <button class="blog-filter-lang active" data-lang="all" data-testid="filter-lang-all" type="button">all</button>
+          {langs.map((l) => (
+            <button class="blog-filter-lang" data-lang={l} data-testid={`filter-lang-${l}`} type="button">{l}</button>
+          ))}
+        </div>
+        {allTags.length > 0 && (
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+            <span style="color: var(--fg-mute); font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase;">tag:</span>
+            <button class="blog-filter-tag active" data-tag="all" data-testid="filter-tag-all" type="button">all</button>
+            {allTags.map((tag) => (
+              <button class="blog-filter-tag" data-tag={tag} data-testid={`filter-tag-${tag}`} type="button">{tag}</button>
+            ))}
+          </div>
+        )}
+      </div>
+    )}
+
+    {/* Post list */}
+    {posts.length === 0 ? (
+      <div class="card-term reveal" style="text-align: center; padding: 48px 24px;">
+        <div style="color: var(--fg-mute); font-size: 13px; font-family: 'JetBrains Mono', monospace; margin-bottom: 12px;">
+          <span style="color: var(--accent)">$</span> find ~/blog -name '*.mdx'
+        </div>
+        <div style="color: var(--fg-dim); font-size: 14px;">
+          0 entries · stay tuned.
+        </div>
+      </div>
+    ) : (
+      <ul id="blog-list" style="list-style: none; padding: 0; margin: 0; display: grid; gap: 16px;" data-testid="blog-list">
+        {posts.map((post, i) => (
+          <li
+            class="blog-item reveal"
+            data-testid="blog-item"
+            data-lang={post.data.lang}
+            data-tags={post.data.tags.join(',')}
+            style={`animation-delay: ${0.04 * i}s;`}
+          >
+            <a href={`/blog/${post.slug}`} class="card-term" style="display: block; text-decoration: none;">
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin-bottom: 6px;">
+                <span class="tag" style="border-color: var(--accent); color: var(--accent);">● {post.data.lang}</span>
+                <span style="color: var(--fg-mute); font-size: 12px; font-family: 'JetBrains Mono', monospace;">
+                  {dateFmt(post.data.date)}
+                </span>
+              </div>
+              <h2 style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 600; color: var(--fg); margin: 6px 0;">
+                <span style="color: var(--accent)">❯ </span>{post.data.title}
+              </h2>
+              <p style="color: var(--fg-dim); font-size: 13px; line-height: 1.7; margin: 6px 0 12px 0; font-family: 'IBM Plex Mono', monospace;">
+                {post.data.description}
+              </p>
+              {post.data.tags.length > 0 && (
+                <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                  {post.data.tags.map((tag) => <span class="tag">#{tag}</span>)}
+                </div>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </main>
+
+  <style is:global>
+    .blog-filter-lang,
+    .blog-filter-tag {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--fg-dim);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .blog-filter-lang:hover,
+    .blog-filter-tag:hover { color: var(--accent); border-color: var(--accent); }
+    .blog-filter-lang.active,
+    .blog-filter-tag.active {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(163, 230, 53, 0.08);
+    }
+    .blog-item { transition: opacity 0.2s; }
+    .blog-item.hidden { display: none; }
+
+    /* Pagefind UI overrides */
+    #blog-search-results .pagefind-ui__result {
+      background: var(--bg-soft);
+      border: 1px solid var(--border-soft);
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      border-radius: 3px;
+    }
+    #blog-search-results .pagefind-ui__result-link {
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+    }
+    #blog-search-results .pagefind-ui__result-excerpt {
+      color: var(--fg-dim);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    #blog-search-results mark {
+      background: rgba(163, 230, 53, 0.18);
+      color: var(--accent);
+    }
+  </style>
+
+  <script>
+    // Filtering by lang + tag
+    const langButtons = document.querySelectorAll<HTMLButtonElement>('.blog-filter-lang');
+    const tagButtons = document.querySelectorAll<HTMLButtonElement>('.blog-filter-tag');
+    const items = document.querySelectorAll<HTMLLIElement>('.blog-item');
+    let currentLang = 'all';
+    let currentTag = 'all';
+
+    const applyFilters = () => {
+      items.forEach((item) => {
+        const itemLang = item.dataset.lang ?? '';
+        const itemTags = (item.dataset.tags ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+        const langMatch = currentLang === 'all' || itemLang === currentLang;
+        const tagMatch = currentTag === 'all' || itemTags.includes(currentTag);
+        item.classList.toggle('hidden', !(langMatch && tagMatch));
+      });
+    };
+
+    langButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        langButtons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentLang = btn.dataset.lang ?? 'all';
+        applyFilters();
+      });
+    });
+    tagButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        tagButtons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTag = btn.dataset.tag ?? 'all';
+        applyFilters();
+      });
+    });
+
+    // Pagefind search wiring (loaded only after build)
+    const initSearch = async () => {
+      const input = document.getElementById('blog-search') as HTMLInputElement | null;
+      const out = document.getElementById('blog-search-results');
+      if (!input || !out) return;
+      try {
+        // Hide dynamic import from Rollup so the build does not try to resolve it.
+        // The path resolves at runtime from the deployed /_pagefind/ directory.
+        // eslint-disable-next-line no-new-func
+        const pagefind = await (new Function('return import("/_pagefind/pagefind.js")'))();
+        await pagefind.options({ baseUrl: '/' });
+        let lastQuery = '';
+        input.addEventListener('input', async () => {
+          const q = input.value.trim();
+          if (q === lastQuery) return;
+          lastQuery = q;
+          if (!q) { out.innerHTML = ''; return; }
+          const search = await pagefind.search(q);
+          const results = await Promise.all(search.results.slice(0, 10).map((r: any) => r.data()));
+          out.innerHTML = results.length === 0
+            ? '<div style="color: var(--fg-mute); font-size: 13px; padding: 8px 0;">no results · try another query</div>'
+            : results.map((r: any) => `
+                <div class="pagefind-ui__result">
+                  <a class="pagefind-ui__result-link" href="${r.url}">${r.meta?.title ?? r.url}</a>
+                  <div class="pagefind-ui__result-excerpt">${r.excerpt}</div>
+                </div>
+              `).join('');
+        });
+      } catch (err) {
+        // Pagefind index not available (dev mode) — silently degrade
+        // eslint-disable-next-line no-console
+        console.info('[blog] pagefind unavailable (dev mode)');
+      }
+    };
+    initSearch();
+  </script>
+</BaseLayout>

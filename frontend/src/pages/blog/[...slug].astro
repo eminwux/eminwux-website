@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavIsland from '../../islands/NavIsland.jsx';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const dateFmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' });
+
+const ytEmbedId = (url?: string): string | null => {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    if (u.hostname === 'youtu.be') return u.pathname.slice(1) || null;
+    if (u.hostname.includes('youtube.com')) {
+      return u.searchParams.get('v') ?? null;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+const embedId = ytEmbedId(post.data.youtubeUrl);
+const canonical = post.data.canonical;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  dateModified: (post.data.updated ?? post.data.date).toISOString(),
+  inLanguage: post.data.lang,
+  keywords: post.data.tags.join(', '),
+  author: {
+    '@type': 'Person',
+    name: 'Emiliano Spinella',
+    url: 'https://eminwux.com',
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Emiliano Spinella',
+    url: 'https://eminwux.com',
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': new URL(`/blog/${post.slug}`, Astro.site).toString(),
+  },
+};
+---
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.ogImage ?? '/og-default.svg'}
+  type="article"
+  lang={post.data.lang}
+  canonical={canonical}
+  publishedTime={post.data.date.toISOString()}
+  modifiedTime={(post.data.updated ?? post.data.date).toISOString()}
+  tags={post.data.tags}
+  jsonLd={jsonLd}
+>
+  <NavIsland client:load />
+
+  <main class="container-x" style="padding-top: 32px; padding-bottom: 96px; max-width: 820px;">
+    <a
+      href="/blog"
+      class="link-u"
+      data-testid="blog-back"
+      style="display: inline-flex; align-items: center; gap: 8px; color: var(--fg-dim); font-size: 13px; text-decoration: none; margin-bottom: 24px;"
+    >
+      ← cd ~/blog
+    </a>
+
+    <header style="margin-bottom: 32px;">
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin-bottom: 14px;">
+        <span class="tag" style="border-color: var(--accent); color: var(--accent);">● {post.data.lang}</span>
+        <span style="color: var(--fg-mute); font-size: 12px; font-family: 'JetBrains Mono', monospace;">
+          {dateFmt(post.data.date)}
+          {post.data.updated && <> · updated {dateFmt(post.data.updated)}</>}
+        </span>
+      </div>
+
+      <h1 data-testid="blog-post-title" style="font-family: 'JetBrains Mono', monospace; font-size: clamp(26px, 4vw, 38px); font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; color: var(--fg); margin: 0 0 14px 0;">
+        <span style="color: var(--accent)">❯ </span>{post.data.title}
+      </h1>
+
+      <p style="color: var(--fg-dim); font-size: 15px; line-height: 1.7; margin: 0 0 12px 0; font-family: 'IBM Plex Mono', monospace;">
+        {post.data.description}
+      </p>
+
+      {post.data.tags.length > 0 && (
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px;">
+          {post.data.tags.map((tag) => <span class="tag">#{tag}</span>)}
+        </div>
+      )}
+    </header>
+
+    {embedId && (
+      <div class="win" style="overflow: hidden; margin-bottom: 36px;">
+        <div class="win-bar">
+          <span class="dot" style="background: #ff5f56"></span>
+          <span class="dot" style="background: #ffbd2e"></span>
+          <span class="dot" style="background: #27c93f"></span>
+          <span style="margin-left: 8px;">— mpv — {embedId}.mp4</span>
+        </div>
+        <div style="position: relative; padding-top: 56.25%; background: #000;">
+          <iframe
+            title={post.data.title}
+            src={`https://www.youtube-nocookie.com/embed/${embedId}?rel=0&modestbranding=1`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"
+          ></iframe>
+        </div>
+      </div>
+    )}
+
+    <article class="prose-term" data-pagefind-body>
+      <Content />
+    </article>
+
+    <footer style="margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border-soft); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: var(--fg-mute); font-size: 12px; font-family: 'JetBrains Mono', monospace;">
+      <span># EOF · {post.data.lang === 'es' ? 'fin del post' : 'end of post'}</span>
+      <a href="/blog" class="link-u" style="color: var(--accent); text-decoration: none;">cd ~/blog ↩</a>
+    </footer>
+  </main>
+</BaseLayout>
