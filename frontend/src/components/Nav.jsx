@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { HOME } from "../constants/testIds";
 import { SOCIAL } from "../data/site";
 import { Github, Twitter, Linkedin, Youtube, Mail } from "lucide-react";
@@ -22,9 +23,9 @@ const Nav = () => {
   }, []);
 
   const link = (id, label, testid) => (
-    <a
+    <Link
       key={id}
-      href={`#${id}`}
+      to={{ pathname: "/", hash: `#${id}` }}
       data-testid={testid}
       onClick={() => setOpen(false)}
       className="link-u"
@@ -35,7 +36,7 @@ const Nav = () => {
       }}
     >
       <span style={{ color: "var(--fg-mute)" }}>~/</span>{label}
-    </a>
+    </Link>
   );
 
   return (
@@ -51,7 +52,7 @@ const Nav = () => {
       }}
     >
       <div className="container-x" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 24px" }}>
-        <a href="#top" data-testid={HOME.navHome} style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+        <Link to={{ pathname: "/", hash: "#top" }} data-testid={HOME.navHome} style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
           <span style={{
             width: 28, height: 28, borderRadius: 4,
             background: "var(--bg-elev)", border: "1px solid var(--accent)",
@@ -64,7 +65,7 @@ const Nav = () => {
           <span style={{ color: "var(--fg)", fontWeight: 600, fontSize: 14 }}>
             eminwux<span style={{ color: "var(--accent)" }}>.com</span>
           </span>
-        </a>
+        </Link>
 
         <nav className="hidden-sm" style={{ display: "flex", alignItems: "center", gap: 28 }}>
           {link("about", "about", HOME.navAbout)}
