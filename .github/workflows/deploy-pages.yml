@@ -40,12 +40,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build website
-        env:
-          PUBLIC_URL: "/"
         run: yarn build
-
-      - name: Add single-page app fallback
-        run: cp build/index.html build/404.html
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -53,7 +48,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: frontend/build
+          path: frontend/dist
 
       - name: Deploy to GitHub Pages
         id: deployment
