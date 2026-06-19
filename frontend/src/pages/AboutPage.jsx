@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CV } from "../data/cv";
-import { PROFILE, SOCIAL } from "../data/site";
+import { PROFILE, SOCIAL, STACK } from "../data/site";
 import { TerminalWindow, Prompt, Comment } from "../components/Terminal";
 import Nav from "../components/Nav";
 import {
-  ArrowLeft, Download, Briefcase, GraduationCap,
+  ArrowLeft, Briefcase, GraduationCap,
   Award, Languages, Wrench, MapPin, Calendar, Mail, Linkedin
 } from "lucide-react";
 
 const SectionTitle = ({ n, label, Icon }) => (
-  <div className="section-h" data-testid={`cv-section-${n}`}>
+  <div className="section-h" data-testid={`about-section-${n}`}>
     <span style={{ color: "var(--accent)" }}>$</span>
     <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
       {Icon && <Icon size={13} style={{ color: "var(--accent)" }} />}
@@ -21,7 +21,7 @@ const SectionTitle = ({ n, label, Icon }) => (
 
 const ExperienceItem = ({ job, i }) => (
   <li
-    data-testid={`cv-job-${i}`}
+    data-testid={`about-job-${i}`}
     className="reveal"
     style={{
       animationDelay: `${0.04 * i}s`,
@@ -96,9 +96,9 @@ const ExperienceItem = ({ job, i }) => (
   </li>
 );
 
-const CVPage = () => {
+const AboutPage = () => {
   useEffect(() => {
-    document.title = `cv — ${PROFILE.name}`;
+    document.title = `about — ${PROFILE.name}`;
     window.scrollTo(0, 0);
     return () => { document.title = "eminwux.com — Emiliano Spinella"; };
   }, []);
@@ -110,7 +110,7 @@ const CVPage = () => {
       <main className="container-x" style={{ paddingTop: 32, paddingBottom: 96, maxWidth: 980 }}>
         <Link
           to="/"
-          data-testid="cv-back"
+          data-testid="about-back"
           className="link-u"
           style={{
             display: "inline-flex", alignItems: "center", gap: 8,
@@ -123,7 +123,7 @@ const CVPage = () => {
 
         {/* Header */}
         <div className="reveal" style={{ animationDelay: "0.05s" }}>
-          <TerminalWindow title="cat ~/cv/profile.md" path="~/cv">
+          <TerminalWindow title="cat ~/about/profile.md" path="~/about">
             <Prompt cmd="whoami --full" />
             <div style={{ marginTop: 8 }}>
               <div style={{
@@ -137,23 +137,55 @@ const CVPage = () => {
               <div style={{ color: "var(--accent)", fontSize: 14, marginBottom: 16 }}>
                 ❯ {CV.headline}
               </div>
-              {CV.summary.map((p, i) => (
-                <p key={i} style={{
-                  color: "var(--fg-dim)", fontSize: 13, lineHeight: 1.8,
-                  margin: "0 0 12px 0", fontFamily: "'IBM Plex Mono', monospace"
-                }}>
-                  <span style={{ color: "var(--fg-mute)" }}># </span>{p}
-                </p>
-              ))}
 
+              {/* Personal bio first */}
+              <div style={{ marginBottom: 18 }}>
+                {PROFILE.bio.map((p, i) => (
+                  <p key={i} style={{
+                    color: "var(--fg)", fontSize: 14, lineHeight: 1.8,
+                    margin: "0 0 12px 0", fontFamily: "'IBM Plex Mono', monospace"
+                  }}>
+                    <span style={{ color: "var(--fg-mute)" }}># </span>{p}
+                  </p>
+                ))}
+              </div>
+
+              {/* Professional summary */}
+              <div style={{ paddingTop: 14, borderTop: "1px dashed var(--border)" }}>
+                <Comment># professional summary</Comment>
+                {CV.summary.map((p, i) => (
+                  <p key={i} style={{
+                    color: "var(--fg-dim)", fontSize: 13, lineHeight: 1.8,
+                    margin: "10px 0", fontFamily: "'IBM Plex Mono', monospace"
+                  }}>
+                    {p}
+                  </p>
+                ))}
+              </div>
+
+              {/* Stack */}
+              <div style={{ marginTop: 18, paddingTop: 14, borderTop: "1px dashed var(--border)" }}>
+                <Prompt cmd="ls /home/eminwux/stack" />
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
+                  {STACK.map((s) => (
+                    <span key={s} className="tag" style={{
+                      borderColor: "var(--border)",
+                      color: "var(--fg)",
+                      background: "var(--bg-elev)"
+                    }}>
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Quick contact */}
               <div style={{
-                display: "flex", flexWrap: "wrap", gap: 12, marginTop: 18,
+                display: "flex", flexWrap: "wrap", gap: 12, marginTop: 22,
                 paddingTop: 16, borderTop: "1px dashed var(--border)"
               }}>
                 <a
-                  href={CV.pdfUrl}
-                  download="emiliano-spinella-cv.pdf"
-                  data-testid="cv-download"
+                  href={SOCIAL.email}
                   className="link-u"
                   style={{
                     fontSize: 13, color: "var(--accent)",
@@ -161,17 +193,6 @@ const CVPage = () => {
                     padding: "8px 14px", borderRadius: 3,
                     textDecoration: "none",
                     background: "rgba(163, 230, 53, 0.06)",
-                    display: "inline-flex", alignItems: "center", gap: 8
-                  }}
-                >
-                  <Download size={13} /> ./download-cv.pdf
-                </a>
-                <a
-                  href={SOCIAL.email}
-                  className="link-u"
-                  style={{
-                    fontSize: 13, color: "var(--fg)",
-                    padding: "8px 14px", textDecoration: "none",
                     display: "inline-flex", alignItems: "center", gap: 8
                   }}
                 >
@@ -210,7 +231,7 @@ const CVPage = () => {
           <SectionTitle n="02" label="education" Icon={GraduationCap} />
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 14 }}>
             {CV.education.map((e, i) => (
-              <li key={i} data-testid={`cv-edu-${i}`} className="card-term reveal" style={{ animationDelay: `${0.04 * i}s` }}>
+              <li key={i} data-testid={`about-edu-${i}`} className="card-term reveal" style={{ animationDelay: `${0.04 * i}s` }}>
                 <div style={{
                   color: "var(--fg)", fontSize: 15, fontWeight: 600,
                   fontFamily: "'JetBrains Mono', monospace", marginBottom: 4
@@ -243,7 +264,7 @@ const CVPage = () => {
 
         {/* Skills */}
         <section style={{ marginTop: 32 }}>
-          <SectionTitle n="04" label="skills · ls /home/eminwux/stack" Icon={Wrench} />
+          <SectionTitle n="04" label="skills" Icon={Wrench} />
           <div className="card-term">
             <div style={{ color: "var(--fg-mute)", fontSize: 12, marginBottom: 12, fontFamily: "'JetBrains Mono', monospace" }}>
               # top skills
@@ -300,14 +321,13 @@ const CVPage = () => {
           display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 12
         }}>
           <span># EOF · {PROFILE.name}</span>
-          <a href={CV.pdfUrl} download="emiliano-spinella-cv.pdf" className="link-u"
-             style={{ color: "var(--accent)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}>
-            <Download size={12} /> download as pdf
-          </a>
+          <Link to="/" className="link-u" style={{ color: "var(--accent)", textDecoration: "none" }}>
+            cd ~ ↩
+          </Link>
         </footer>
       </main>
     </div>
   );
 };
 
-export default CVPage;
+export default AboutPage;

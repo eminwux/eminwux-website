@@ -8,11 +8,12 @@ const Nav = () => {
   const [active, setActive] = useState("");
   const { pathname } = useLocation();
   const onHome = pathname === "/";
+  const isAbout = pathname === "/about";
 
   useEffect(() => {
     if (!onHome) { setActive(""); return; }
     const onScroll = () => {
-      const sections = ["about", "projects", "youtube", "contact"];
+      const sections = ["projects", "youtube", "contact"];
       let current = "";
       for (const s of sections) {
         const el = document.getElementById(s);
@@ -41,8 +42,6 @@ const Nav = () => {
       <span style={{ color: "var(--fg-mute)" }}>~/</span>{label}
     </Link>
   );
-
-  const isCv = pathname === "/cv";
 
   return (
     <header
@@ -77,19 +76,18 @@ const Nav = () => {
         </Link>
 
         <nav className="hidden-sm" style={{ display: "flex", alignItems: "center", gap: 28 }}>
-          {sectionLink("about", "about", HOME.navAbout)}
           <Link
-            to="/cv"
-            data-testid={HOME.navCv}
+            to="/about"
+            data-testid={HOME.navAbout}
             className="link-u"
             style={{
               fontSize: 13,
-              color: isCv ? "var(--accent)" : "var(--fg-dim)",
+              color: isAbout ? "var(--accent)" : "var(--fg-dim)",
               transition: "color 0.2s",
               textDecoration: "none"
             }}
           >
-            <span style={{ color: "var(--fg-mute)" }}>~/</span>cv
+            <span style={{ color: "var(--fg-mute)" }}>~/</span>about
           </Link>
           {sectionLink("projects", "projects", HOME.navProjects)}
           {sectionLink("youtube", "youtube", HOME.navYoutube)}
