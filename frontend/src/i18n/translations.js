@@ -34,7 +34,7 @@ export const en = {
     techStack: "tech stack · cat ~/stack.yaml",
     cta: {
       title: "Let's collaborate",
-      desc: "Open to OSS collabs, infra & systems work, podcasts, and good old geek chats.",
+      desc: "Open to collab on YouTube videos and podcast appearances.",
       subscribe: "Subscribe on YouTube",
       projects: "Explore projects",
       contact: "Get in touch"
@@ -67,6 +67,7 @@ export const en = {
   youtube: {
     sectionHeading: "04 / youtube · yt-dlp @eminwux --top",
     channelDesc: "Stories from Unix, Linux, BSD & the corners of computing history.",
+    openToCollab: "open to collab",
     subscribe: "subscribe →",
     open: "open",
     views: "views",
@@ -77,7 +78,7 @@ export const en = {
   },
   contact: {
     sectionHeading: "05 / contact · ./reach-out.sh",
-    comment1: "Open to OSS collabs, infra & systems work, podcasts, and good old geek chats.",
+    comment1: "For YouTube collabs or podcast appearances, drop a line.",
     comment2: "Reply time: usually < 48h.",
     email: "email",
     github: "github",
@@ -137,7 +138,7 @@ export const es = {
     techStack: "stack tecnológico · cat ~/stack.yaml",
     cta: {
       title: "Colaboremos",
-      desc: "Abierto a colaboraciones OSS, trabajo de infra y sistemas, podcasts y buenas charlas geek.",
+      desc: "Abierto a colaborar en videos de YouTube y apariciones en podcasts.",
       subscribe: "Suscribirse en YouTube",
       projects: "Explorar proyectos",
       contact: "Contáctame"
@@ -170,6 +171,7 @@ export const es = {
   youtube: {
     sectionHeading: "04 / youtube · yt-dlp @eminwux --top",
     channelDesc: "Historias de Unix, Linux, BSD y los rincones de la historia de la computación.",
+    openToCollab: "abierto a colaborar",
     subscribe: "suscribirse →",
     open: "abrir",
     views: "vistas",
@@ -180,7 +182,7 @@ export const es = {
   },
   contact: {
     sectionHeading: "05 / contacto · ./reach-out.sh",
-    comment1: "Abierto a colaboraciones OSS, trabajo de infra y sistemas, podcasts y charlas geek.",
+    comment1: "Para colaboraciones en YouTube o apariciones en podcasts, escríbeme.",
     comment2: "Tiempo de respuesta: normalmente < 48h.",
     email: "correo",
     github: "github",
