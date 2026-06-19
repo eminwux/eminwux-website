@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -9,19 +9,28 @@ import YouTube from "./components/YouTube";
 import Contact from "./components/Contact";
 import VideoPage from "./pages/VideoPage";
 
-const Home = () => (
-  <div className="crt">
-    <div className="grain" />
-    <Nav />
-    <main>
-      <Hero />
-      <About />
-      <Projects />
-      <YouTube />
-      <Contact />
-    </main>
-  </div>
-);
+const Home = () => {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    const section = document.getElementById(hash.slice(1) || "top");
+    section?.scrollIntoView();
+  }, [hash]);
+
+  return (
+    <div className="crt">
+      <div className="grain" />
+      <Nav />
+      <main>
+        <Hero />
+        <About />
+        <Projects />
+        <YouTube />
+        <Contact />
+      </main>
+    </div>
+  );
+};
 
 function App() {
   return (
