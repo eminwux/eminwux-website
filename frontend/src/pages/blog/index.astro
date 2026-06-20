@@ -9,13 +9,33 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
 
 const allTags = Array.from(new Set(posts.flatMap((p) => p.data.tags))).sort();
 const langs = Array.from(new Set(posts.map((p) => p.data.lang))).sort();
+const blogUrl = new URL('/blog/', Astro.site).toString();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Blog | eminwux',
+  url: blogUrl,
+  description: 'Writings on Linux, Unix, containers, terminals and the history of the systems we use every day — by Emiliano Spinella.',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListOrder: 'https://schema.org/ItemListOrderDescending',
+    numberOfItems: posts.length,
+    itemListElement: posts.map((post, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: new URL(`/blog/${post.slug}/`, Astro.site).toString(),
+      name: post.data.title,
+    })),
+  },
+};
 
 const dateFmt = (d: Date) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' });
 ---
 <BaseLayout
-  title="blog"
+  title="Blog"
   description="Writings on Linux, Unix, containers, terminals and the history of the systems we use every day — by Emiliano Spinella."
+  jsonLd={jsonLd}
 >
   <NavIsland client:load />
 

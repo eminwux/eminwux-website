@@ -1,10 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AboutIsland from '../islands/AboutIsland.jsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'About Emiliano Spinella | eminwux',
+  url: new URL('/about/', Astro.site).toString(),
+  description: 'About Emiliano Spinella — Cloud Engineering Lead with 20+ years of experience in platform engineering, containers and GNU/Linux.',
+  about: {
+    '@type': 'Person',
+    name: 'Emiliano Spinella',
+    url: new URL('/', Astro.site).toString(),
+  },
+};
 ---
 <BaseLayout
-  title="about"
+  title="About Emiliano Spinella"
   description="About Emiliano Spinella — Cloud Engineering Lead with 20+ years of experience in platform engineering, containers and GNU/Linux."
+  jsonLd={jsonLd}
 >
   <AboutIsland client:load />
 </BaseLayout>

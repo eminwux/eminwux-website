@@ -1,10 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactIsland from '../islands/ContactIsland.jsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Emiliano Spinella | eminwux',
+  url: new URL('/contact/', Astro.site).toString(),
+  description: 'Contact Emiliano Spinella (eminwux) — email, GitHub, X/Twitter, LinkedIn and YouTube.',
+  about: {
+    '@type': 'Person',
+    name: 'Emiliano Spinella',
+    url: new URL('/', Astro.site).toString(),
+  },
+};
 ---
 <BaseLayout
-  title="contact"
+  title="Contact Emiliano Spinella"
   description="Contact Emiliano Spinella (eminwux) — email, GitHub, X/Twitter, LinkedIn and YouTube."
+  jsonLd={jsonLd}
 >
   <ContactIsland client:load />
 </BaseLayout>
