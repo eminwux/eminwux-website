@@ -1,0 +1,10 @@
+apiVersion: kuketeams.io/v1
+kind: ProjectTeam
+metadata: { name: eminwux-website }
+spec:
+  source: { repo: github.com/eminwux/agents, branch: main }
+  defaults: { harnesses: [codex] }
+  roles:
+    - { ref: dev, needs: { image: [node] } }
+    - { ref: pm }
+    - { ref: pr-reviewer }
