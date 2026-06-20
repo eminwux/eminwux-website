@@ -3,11 +3,11 @@
 export const PROFILE = {
   name: "Emiliano Spinella",
   handle: "eminwux",
-  role: "Systems Engineer · Containers · GNU/Linux",
+  role: "Computer Engineer · Containers · GNU/Linux",
   location: "Netherlands",
   tagline: "Building agent-native infrastructure & Terminal-as-Code tooling.",
   bio: [
-    "I'm a systems engineer who loves the parts of computing most people abstract away — containers, cgroups, namespaces, terminals, shells, and the long, weird history of Unix.",
+    "I'm a computer engineer who loves the parts of computing most people abstract away — containers, cgroups, namespaces, terminals, shells, and the long, weird history of Unix.",
     "I build self-hosted, open-source infrastructure tools, and I run a YouTube channel where I tell the stories behind the technology we use every day."
   ]
 };
