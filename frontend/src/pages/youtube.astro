@@ -1,10 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import YouTubeIsland from '../islands/YouTubeIsland.jsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'YouTube | eminwux',
+  url: new URL('/youtube/', Astro.site).toString(),
+  description: '@eminwux on YouTube — stories from Unix, Linux, BSD and the corners of computing history.',
+  about: {
+    '@type': 'Person',
+    name: 'Emiliano Spinella',
+    url: new URL('/', Astro.site).toString(),
+  },
+};
 ---
 <BaseLayout
-  title="youtube"
+  title="YouTube"
   description="@eminwux on YouTube — stories from Unix, Linux, BSD and the corners of computing history."
+  jsonLd={jsonLd}
 >
   <YouTubeIsland client:load />
 </BaseLayout>

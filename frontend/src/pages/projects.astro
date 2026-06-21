@@ -1,10 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectsIsland from '../islands/ProjectsIsland.jsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Open Source Projects | eminwux',
+  url: new URL('/projects/', Astro.site).toString(),
+  description: 'Open source projects by Emiliano Spinella — kukeon (agent-native runtime) and sbsh (Terminal-as-Code).',
+  about: {
+    '@type': 'Person',
+    name: 'Emiliano Spinella',
+    url: new URL('/', Astro.site).toString(),
+  },
+};
 ---
 <BaseLayout
-  title="projects"
+  title="Open Source Projects"
   description="Open source projects by Emiliano Spinella — kukeon (agent-native runtime) and sbsh (Terminal-as-Code)."
+  jsonLd={jsonLd}
 >
   <ProjectsIsland client:load />
 </BaseLayout>

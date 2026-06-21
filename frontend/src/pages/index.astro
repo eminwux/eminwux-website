@@ -1,10 +1,29 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeIsland from '../islands/HomeIsland.jsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Emiliano Spinella | eminwux',
+  url: new URL('/', Astro.site).toString(),
+  description: 'Emiliano Spinella (eminwux) — Computer engineer building agent-native infrastructure (kukeon) and Terminal-as-Code tooling (sbsh). Linux & Unix storyteller.',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: 'eminwux',
+    url: new URL('/', Astro.site).toString(),
+  },
+  about: {
+    '@type': 'Person',
+    name: 'Emiliano Spinella',
+    url: new URL('/', Astro.site).toString(),
+  },
+};
 ---
 <BaseLayout
-  title="eminwux.com"
+  title="Emiliano Spinella"
   description="Emiliano Spinella (eminwux) — Computer engineer building agent-native infrastructure (kukeon) and Terminal-as-Code tooling (sbsh). Linux & Unix storyteller."
+  jsonLd={jsonLd}
 >
   <HomeIsland client:load />
 </BaseLayout>
