@@ -13,11 +13,11 @@ export const en = {
   hero: {
     online: "online",
     openToCollabs: "open to collabs",
-    role: "Systems Engineer · Containers · GNU/Linux",
+    role: "Computer Engineer · Containers · GNU/Linux",
     tagline: "Building agent-native infrastructure & Terminal-as-Code tooling."
   },
   bio: [
-    "I'm a systems engineer who loves the parts of computing most people abstract away — containers, cgroups, namespaces, terminals, shells, and the long, weird history of Unix.",
+    "I'm a computer engineer who loves the parts of computing most people abstract away — containers, cgroups, namespaces, terminals, shells, and the long, weird history of Unix.",
     "I build self-hosted, open-source infrastructure tools, and I run a YouTube channel where I tell the stories behind the technology we use every day."
   ],
   home: {
@@ -118,11 +118,11 @@ export const es = {
   hero: {
     online: "en línea",
     openToCollabs: "abierto a colaborar",
-    role: "Ingeniero de Sistemas · Contenedores · GNU/Linux",
+    role: "Ingeniero Informático · Contenedores · GNU/Linux",
     tagline: "Construyendo infraestructura agent-native y tooling Terminal-as-Code."
   },
   bio: [
-    "Soy ingeniero de sistemas y me apasionan las partes de la computación que la mayoría abstrae — contenedores, cgroups, namespaces, terminales, shells y la larga y extraña historia de Unix.",
+    "Soy ingeniero informático y me apasionan las partes de la computación que la mayoría abstrae — contenedores, cgroups, namespaces, terminales, shells y la larga y extraña historia de Unix.",
     "Construyo herramientas de infraestructura open-source auto-alojadas y tengo un canal de YouTube donde cuento las historias detrás de la tecnología que usamos cada día."
   ],
   home: {
