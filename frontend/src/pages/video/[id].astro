@@ -2,6 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import VideoIsland from '../../islands/VideoIsland.jsx';
 import { VIDEOS } from '../../data/site.js';
+import {
+  VIDEO_THUMBNAIL_FALLBACK,
+  youtubeThumbnailCandidates,
+} from '../../utils/videoThumbnails.js';
 
 export async function getStaticPaths() {
   return VIDEOS.map((v) => ({
@@ -15,14 +19,17 @@ const { video } = Astro.props;
 
 const description = video?.description?.slice(0, 200) ?? '';
 const lang = video?.lang === 'es' ? 'es' : 'en';
-const image = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+const image = new URL(VIDEO_THUMBNAIL_FALLBACK, Astro.site).toString();
+const thumbnailUrls = youtubeThumbnailCandidates(video).map((candidate) =>
+  new URL(candidate, Astro.site).toString()
+);
 
 const jsonLd = video ? {
   '@context': 'https://schema.org',
   '@type': 'VideoObject',
   name: video.title,
   description,
-  thumbnailUrl: [image],
+  thumbnailUrl: thumbnailUrls,
   uploadDate: undefined,
   contentUrl: `https://www.youtube.com/watch?v=${id}`,
   embedUrl: `https://www.youtube-nocookie.com/embed/${id}`,

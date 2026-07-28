@@ -37,8 +37,8 @@ const Body = ({ id }) => {
         <div className="reveal" style={{ animationDelay: "0.05s" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10, flexWrap: "wrap" }}>
             <span className="tag" style={{ borderColor: "var(--accent)", color: "var(--accent)" }}>● {v.lang === "es" ? "español" : "english"}</span>
-            <span className="tag">{v.duration}</span>
-            <span className="tag">{v.views} {t('youtube.views')}</span>
+            {v.duration && <span className="tag">{v.duration}</span>}
+            {v.views && <span className="tag">{v.views} {t('youtube.views')}</span>}
             <span className="tag">{v.age}</span>
           </div>
 
@@ -83,6 +83,11 @@ const Body = ({ id }) => {
               <a href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noreferrer" data-testid="video-watch-yt" className="link-u" style={{ color: "var(--accent)", fontSize: 13, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}>
                 <YT size={14} /> {t('video.watchOnYoutube')} <ExternalLink size={12} />
               </a>
+              {v.articleSlug && (
+                <a href={`/blog/${v.articleSlug}/`} className="link-u" style={{ color: "var(--accent)", fontSize: 13, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}>
+                  {v.lang === "es" ? "Leer el artículo" : "Read the article"}
+                </a>
+              )}
               <a href={SOCIAL.youtube} target="_blank" rel="noreferrer" className="link-u" style={{ color: "var(--fg-dim)", fontSize: 13, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}>
                 {t('video.subscribe')}
               </a>

@@ -29,8 +29,12 @@ const jsonLd = {
   },
 };
 
-const dateFmt = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' });
+const dateFmt = (d: Date, lang: 'en' | 'es') =>
+  d.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  });
 ---
 <BaseLayout
   title="Blog"
@@ -111,7 +115,7 @@ const dateFmt = (d: Date) =>
               <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin-bottom: 6px;">
                 <span class="tag" style="border-color: var(--accent); color: var(--accent);">● {post.data.lang}</span>
                 <span style="color: var(--fg-mute); font-size: 12px; font-family: 'JetBrains Mono', monospace;">
-                  {dateFmt(post.data.date)}
+                  {dateFmt(post.data.date, post.data.lang)}
                 </span>
               </div>
               <h2 style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 600; color: var(--fg); margin: 6px 0;">

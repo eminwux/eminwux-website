@@ -3,8 +3,7 @@ import { VIDEOS, PLAYLISTS, SOCIAL } from "../data/site";
 import { HOME } from "../constants/testIds";
 import { Play, ListVideo, ExternalLink } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
-
-const thumb = (id) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+import VideoThumbnail from "./VideoThumbnail";
 
 const VideoCard = ({ v, i }) => {
   const { t } = useLanguage();
@@ -21,7 +20,7 @@ const VideoCard = ({ v, i }) => {
       }}
     >
       <div className="thumb">
-        <img src={thumb(v.id)} alt={v.title} loading="lazy" />
+        <VideoThumbnail video={v} />
         <div className="thumb-play">
           <div style={{
             width: 56, height: 56, borderRadius: "50%",
@@ -32,15 +31,17 @@ const VideoCard = ({ v, i }) => {
             <Play size={22} fill="#0a0c0a" color="#0a0c0a" />
           </div>
         </div>
-        <div style={{
-          position: "absolute", bottom: 8, right: 8,
-          background: "rgba(10,12,10,0.92)",
-          color: "var(--fg)", fontSize: 11,
-          padding: "2px 6px", borderRadius: 2,
-          fontFamily: "'JetBrains Mono', monospace"
-        }}>
-          {v.duration}
-        </div>
+        {v.duration && (
+          <div style={{
+            position: "absolute", bottom: 8, right: 8,
+            background: "rgba(10,12,10,0.92)",
+            color: "var(--fg)", fontSize: 11,
+            padding: "2px 6px", borderRadius: 2,
+            fontFamily: "'JetBrains Mono', monospace"
+          }}>
+            {v.duration}
+          </div>
+        )}
       </div>
       <div style={{ marginTop: 14 }}>
         <div style={{
@@ -50,8 +51,12 @@ const VideoCard = ({ v, i }) => {
           {v.title}
         </div>
         <div style={{ color: "var(--fg-mute)", fontSize: 12, display: "flex", gap: 8 }}>
-          <span style={{ color: "var(--accent)" }}>{v.views} {t('youtube.views')}</span>
-          <span>·</span>
+          {v.views && (
+            <>
+              <span style={{ color: "var(--accent)" }}>{v.views} {t('youtube.views')}</span>
+              <span>·</span>
+            </>
+          )}
           <span>{v.age}</span>
         </div>
       </div>
