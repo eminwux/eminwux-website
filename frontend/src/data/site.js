@@ -64,6 +64,18 @@ export const PROJECTS = [
 // Top videos from @eminwux — static, ordered by impact
 export const VIDEOS = [
   {
+    id: "iecqRV2lBCY",
+    title: "chroot: la raíz falsa que cambió el mundo de un proceso",
+    views: null,
+    duration: null,
+    age: "nuevo",
+    lang: "es",
+    articleSlug: "chroot-raiz-falsa",
+    description:
+      "Mucho antes de Docker y de Linux, UNIX V7 ya podía presentar un directorio cualquiera como la raíz completa de un proceso. Esta es la historia de las pocas líneas de código que convirtieron `/` en una propiedad contextual, de la salida que todavía permitía `..` y de por qué `chroot` fue una raíz conceptual de los contenedores sin ser todavía un contenedor ni una cárcel de seguridad.",
+    tags: ["chroot", "Unix", "Linux", "Contenedores", "Historia"]
+  },
+  {
     id: "Kqbg1xHZbuw",
     title: "Linux Quedó Obsoleto: La Discusión que Marcó la Historia",
     views: "200K",

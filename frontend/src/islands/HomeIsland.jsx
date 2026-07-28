@@ -4,6 +4,7 @@ import Hero from "../components/Hero";
 import { LanguageProvider, useLanguage } from "../i18n/LanguageContext";
 import { Terminal, Youtube, Mail, ArrowRight, Play, ExternalLink, Github, Award, Briefcase, GraduationCap, TrendingUp } from "lucide-react";
 import { VIDEOS, PROJECTS, STACK, SOCIAL } from "../data/site";
+import VideoThumbnail from "../components/VideoThumbnail";
 
 const StatsBar = () => {
   const { t } = useLanguage();
@@ -61,7 +62,6 @@ const AboutSnippet = () => {
 
 const FeaturedVideoCard = ({ video, index }) => {
   const { t } = useLanguage();
-  const thumb = `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`;
   return (
     <a
       href={`/video/${video.id}`}
@@ -69,23 +69,29 @@ const FeaturedVideoCard = ({ video, index }) => {
       style={{ textDecoration: "none", display: "block", animationDelay: `${0.05 * index}s` }}
     >
       <div className="thumb">
-        <img src={thumb} alt={video.title} loading="lazy" />
+        <VideoThumbnail video={video} loading={index === 0 ? "eager" : "lazy"} />
         <div className="thumb-play">
           <div style={{ width: 56, height: 56, borderRadius: "50%", background: "var(--accent)", display: "grid", placeItems: "center", boxShadow: "0 0 30px var(--accent-glow)" }}>
             <Play size={22} fill="#0a0c0a" color="#0a0c0a" />
           </div>
         </div>
-        <div style={{ position: "absolute", bottom: 8, right: 8, background: "rgba(10,12,10,0.92)", color: "var(--fg)", fontSize: 11, padding: "2px 6px", borderRadius: 2, fontFamily: "'JetBrains Mono', monospace" }}>
-          {video.duration}
-        </div>
+        {video.duration && (
+          <div style={{ position: "absolute", bottom: 8, right: 8, background: "rgba(10,12,10,0.92)", color: "var(--fg)", fontSize: 11, padding: "2px 6px", borderRadius: 2, fontFamily: "'JetBrains Mono', monospace" }}>
+            {video.duration}
+          </div>
+        )}
       </div>
       <div style={{ marginTop: 14 }}>
         <div style={{ color: "var(--fg)", fontSize: 14, fontWeight: 500, lineHeight: 1.4, marginBottom: 8 }}>
           {video.title}
         </div>
         <div style={{ color: "var(--fg-mute)", fontSize: 12, display: "flex", gap: 8 }}>
-          <span style={{ color: "var(--accent)" }}>{video.views} {t('youtube.views')}</span>
-          <span>·</span>
+          {video.views && (
+            <>
+              <span style={{ color: "var(--accent)" }}>{video.views} {t('youtube.views')}</span>
+              <span>·</span>
+            </>
+          )}
           <span>{video.age}</span>
         </div>
       </div>
