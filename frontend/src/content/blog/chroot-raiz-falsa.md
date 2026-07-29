@@ -4,6 +4,7 @@ description: "Cómo unas pocas líneas de UNIX V7 convirtieron la raíz del file
 date: 2026-07-28
 tags: ["unix", "linux", "history", "chroot", "filesystems", "containers"]
 lang: "es"
+translationKey: "chroot-false-root"
 draft: false
 youtubeUrl: "https://youtu.be/1QFqUFEPGRw"
 ogImage: "/blog/chroot-raiz-falsa/og.jpg"

@@ -57,6 +57,9 @@
           ],
           "default": "en"
         },
+        "translationKey": {
+          "type": "string"
+        },
         "draft": {
           "type": "boolean",
           "default": false

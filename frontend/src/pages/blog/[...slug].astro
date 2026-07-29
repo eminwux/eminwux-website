@@ -7,15 +7,23 @@ export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
   return posts.map((post) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: {
+      post,
+      translations: post.data.translationKey
+        ? posts
+            .filter((candidate) => candidate.data.translationKey === post.data.translationKey)
+            .map((candidate) => ({ lang: candidate.data.lang, slug: candidate.slug }))
+        : [],
+    },
   }));
 }
 
 interface Props {
   post: CollectionEntry<'blog'>;
+  translations: Array<{ lang: 'en' | 'es'; slug: string }>;
 }
 
-const { post } = Astro.props;
+const { post, translations } = Astro.props;
 const { Content } = await post.render();
 
 const locale = post.data.lang === 'es' ? 'es-ES' : 'en-US';
@@ -78,6 +86,7 @@ const jsonLd = {
   modifiedTime={(post.data.updated ?? post.data.date).toISOString()}
   tags={post.data.tags}
   jsonLd={jsonLd}
+  alternates={translations.map(({ lang, slug }) => ({ lang, href: `/blog/${slug}/` }))}
 >
   <NavIsland client:load />
 
@@ -107,6 +116,24 @@ const jsonLd = {
       <p style="color: var(--fg-dim); font-size: 15px; line-height: 1.7; margin: 0 0 12px 0; font-family: 'IBM Plex Mono', monospace;">
         {post.data.description}
       </p>
+
+      {translations.some(({ lang }) => lang !== post.data.lang) && (
+        <div style="margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+          {translations
+            .filter(({ lang }) => lang !== post.data.lang)
+            .map(({ lang, slug }) => (
+              <a
+                href={`/blog/${slug}/`}
+                rel="alternate"
+                hreflang={lang}
+                class="link-u"
+                style="color: var(--accent); text-decoration: none;"
+              >
+                {lang === 'es' ? 'Leer en español' : 'Read in English'} →
+              </a>
+            ))}
+        </div>
+      )}
 
       {post.data.tags.length > 0 && (
         <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px;">
