@@ -5,7 +5,7 @@ date: 2026-07-28
 tags: ["unix", "linux", "history", "chroot", "filesystems", "containers"]
 lang: "es"
 draft: false
-youtubeUrl: "https://youtu.be/iecqRV2lBCY"
+youtubeUrl: "https://youtu.be/1QFqUFEPGRw"
 ogImage: "/blog/chroot-raiz-falsa/og.jpg"
 ---
 
@@ -229,7 +229,7 @@ Esa separación ayuda también a entender por qué los contenedores comparten ke
 
 Su longevidad procede de esa precisión. Todavía es útil al reparar instalaciones, preparar sistemas y ejecutar herramientas dentro de jerarquías alternativas. No porque se haya convertido retroactivamente en una solución completa, sino porque la operación original continúa siendo necesaria.
 
-Este ensayo acompaña al vídeo [*chroot: la raíz falsa que cambió el mundo de un proceso*](https://youtu.be/iecqRV2lBCY), donde la misma historia se reconstruye visualmente desde el código de UNIX V7.
+Este ensayo acompaña al vídeo [*chroot: la raíz falsa que cambió el mundo de un proceso*](https://youtu.be/1QFqUFEPGRw), donde la misma historia se reconstruye visualmente desde el código de UNIX V7.
 
 <a id="conclusion-chroot-no-construye-una-muralla"></a>
 
