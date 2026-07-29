@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { PROFILE, SOCIAL } from '../data/site.js';
+import CookieConsent from '../components/CookieConsent.astro';
 
 export interface Props {
   title: string;
@@ -114,15 +115,6 @@ const structuredData = [siteJsonLd, personJsonLd, ...(jsonLd ? [jsonLd] : [])];
     {/* Sitemap */}
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
-    {/* Google Analytics */}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1B7WDPT3W"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-Z1B7WDPT3W');
-    </script>
-
     {structuredData.map((entry) => (
       <script type="application/ld+json" set:html={JSON.stringify(entry)} />
     ))}
@@ -133,5 +125,6 @@ const structuredData = [siteJsonLd, personJsonLd, ...(jsonLd ? [jsonLd] : [])];
     <div class="crt"></div>
     <div class="grain"></div>
     <slot />
+    <CookieConsent />
   </body>
 </html>

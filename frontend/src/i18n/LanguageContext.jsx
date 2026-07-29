@@ -33,6 +33,11 @@ export function LanguageProvider({ children }) {
   const setLang = useCallback((newLang) => {
     if (!SUPPORTED_LANGS.includes(newLang)) return;
     try { localStorage.setItem(STORAGE_KEY, newLang); } catch (e) { /* ignore */ }
+    try {
+      window.dispatchEvent(new CustomEvent('eminwux:language-change', {
+        detail: { lang: newLang }
+      }));
+    } catch (e) { /* ignore unavailable browser APIs */ }
     setLangState(newLang);
   }, []);
 

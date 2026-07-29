@@ -1,0 +1,440 @@
+---
+import { COOKIES } from '../constants/testIds/cookies.js';
+
+const measurementId = 'G-Z1B7WDPT3W';
+---
+
+<dialog
+  id="cookie-consent-dialog"
+  class="cookie-dialog"
+  data-testid={COOKIES.dialog}
+  data-measurement-id={measurementId}
+  aria-labelledby="cookie-consent-title"
+  aria-describedby="cookie-consent-description"
+>
+  <div class="cookie-window">
+    <div class="cookie-window-bar" aria-hidden="true">
+      <span class="cookie-dot cookie-dot-red"></span>
+      <span class="cookie-dot cookie-dot-amber"></span>
+      <span class="cookie-dot cookie-dot-green"></span>
+      <span class="cookie-window-title">privacy · ~/cookies.conf</span>
+    </div>
+
+    <div class="cookie-body">
+      <p class="cookie-command">
+        <span class="cookie-prompt">$</span> cat ~/cookies.conf
+      </p>
+      <h2 id="cookie-consent-title">Your privacy settings</h2>
+      <p id="cookie-consent-description">
+        This site uses optional Google Analytics cookies to understand aggregate
+        traffic. They are only activated if you accept them.
+      </p>
+      <p class="cookie-note">
+        Necessary browser storage is still used to remember your language and
+        this choice.
+      </p>
+
+      <div class="cookie-actions">
+        <button
+          type="button"
+          class="cookie-button cookie-button-secondary"
+          data-action="reject"
+          data-testid={COOKIES.reject}
+        >
+          Necessary only
+        </button>
+        <button
+          type="button"
+          class="cookie-button cookie-button-primary"
+          data-action="accept"
+          data-testid={COOKIES.accept}
+          autofocus
+        >
+          Accept analytics
+        </button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<button
+  type="button"
+  class="cookie-settings"
+  data-cookie-settings
+  data-testid={COOKIES.settings}
+  aria-haspopup="dialog"
+  aria-controls="cookie-consent-dialog"
+>
+  <span aria-hidden="true">[</span>
+  <span data-settings-label>privacy</span>
+  <span aria-hidden="true">]</span>
+</button>
+
+<style>
+  :global(html.cookie-dialog-open) {
+    overflow: hidden;
+  }
+
+  .cookie-dialog {
+    width: min(560px, calc(100vw - 32px));
+    max-width: none;
+    max-height: calc(100dvh - 32px);
+    padding: 0;
+    color: var(--fg);
+    background: transparent;
+    border: 0;
+    overflow: visible;
+  }
+
+  .cookie-dialog::backdrop {
+    background: rgba(3, 5, 3, 0.78);
+    backdrop-filter: blur(4px);
+  }
+
+  .cookie-window {
+    overflow: hidden;
+    background: var(--bg-soft);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    box-shadow:
+      0 0 0 1px var(--accent-glow),
+      0 24px 80px rgba(0, 0, 0, 0.72);
+  }
+
+  .cookie-window-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 13px;
+    color: var(--fg-mute);
+    background: var(--bg-elev);
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+  }
+
+  .cookie-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .cookie-dot-red { background: var(--magenta); }
+  .cookie-dot-amber { background: var(--amber); }
+  .cookie-dot-green { background: var(--accent); }
+  .cookie-window-title { margin-left: 4px; }
+
+  .cookie-body {
+    padding: 24px;
+  }
+
+  .cookie-command {
+    margin: 0 0 14px;
+    color: var(--fg-mute);
+    font-size: 12px;
+  }
+
+  .cookie-prompt {
+    color: var(--accent);
+  }
+
+  .cookie-body h2 {
+    margin: 0 0 12px;
+    color: var(--fg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(18px, 4vw, 22px);
+  }
+
+  .cookie-body p:not(.cookie-command) {
+    margin: 0;
+    color: var(--fg-dim);
+    font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .cookie-body .cookie-note {
+    margin-top: 10px;
+    color: var(--fg-mute);
+    font-size: 12px;
+  }
+
+  .cookie-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .cookie-button,
+  .cookie-settings {
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+  }
+
+  .cookie-button {
+    min-height: 42px;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .cookie-button:focus-visible,
+  .cookie-settings:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+  }
+
+  .cookie-button-primary {
+    color: var(--bg);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+  }
+
+  .cookie-button-primary:hover {
+    box-shadow: 0 0 18px var(--accent-glow);
+  }
+
+  .cookie-button-secondary {
+    color: var(--fg);
+    background: transparent;
+    border: 1px solid var(--border);
+  }
+
+  .cookie-button-secondary:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .cookie-settings {
+    position: fixed;
+    z-index: 110;
+    right: 14px;
+    bottom: 12px;
+    padding: 5px 8px;
+    color: var(--fg-mute);
+    background: rgba(10, 12, 10, 0.9);
+    border: 1px solid var(--border-soft);
+    border-radius: 3px;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .cookie-settings:hover {
+    color: var(--accent);
+    border-color: var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .cookie-body {
+      padding: 20px 18px;
+    }
+
+    .cookie-actions {
+      flex-direction: column-reverse;
+    }
+
+    .cookie-button {
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cookie-button {
+      transition: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const STORAGE_KEY = 'eminwux-cookie-consent-v1';
+    const LANGUAGE_KEY = 'eminwux-lang';
+    const ACCEPTED = 'accepted';
+    const REJECTED = 'rejected';
+    const dialog = document.getElementById('cookie-consent-dialog');
+    const settingsButton = document.querySelector('[data-cookie-settings]');
+
+    if (!(dialog instanceof HTMLDialogElement) || !(settingsButton instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    const measurementId = dialog.dataset.measurementId;
+    const disableKey = `ga-disable-${measurementId}`;
+    const copy = {
+      en: {
+        title: 'Your privacy settings',
+        description: 'This site uses optional Google Analytics cookies to understand aggregate traffic. They are only activated if you accept them.',
+        note: 'Necessary browser storage is still used to remember your language and this choice.',
+        reject: 'Necessary only',
+        accept: 'Accept analytics',
+        settings: 'privacy'
+      },
+      es: {
+        title: 'Tus ajustes de privacidad',
+        description: 'Este sitio utiliza cookies opcionales de Google Analytics para entender el tráfico agregado. Solo se activan si las aceptas.',
+        note: 'El almacenamiento necesario del navegador se sigue usando para recordar tu idioma y esta elección.',
+        reject: 'Solo necesarias',
+        accept: 'Aceptar analíticas',
+        settings: 'privacidad'
+      }
+    };
+
+    const readStorage = (key) => {
+      try {
+        return localStorage.getItem(key);
+      } catch {
+        return null;
+      }
+    };
+
+    const writeStorage = (key, value) => {
+      try {
+        localStorage.setItem(key, value);
+      } catch {
+        // Consent still applies to the current page if storage is unavailable.
+      }
+    };
+
+    const getLanguage = () => {
+      const stored = readStorage(LANGUAGE_KEY);
+      if (stored === 'en' || stored === 'es') return stored;
+      const documentLanguage = document.documentElement.lang.split('-')[0].toLowerCase();
+      if (documentLanguage === 'en' || documentLanguage === 'es') return documentLanguage;
+      return navigator.language?.toLowerCase().startsWith('es') ? 'es' : 'en';
+    };
+
+    const applyLanguage = (language = getLanguage()) => {
+      const languageCopy = copy[language] ?? copy.en;
+      dialog.querySelector('#cookie-consent-title').textContent = languageCopy.title;
+      dialog.querySelector('#cookie-consent-description').textContent = languageCopy.description;
+      dialog.querySelector('.cookie-note').textContent = languageCopy.note;
+      dialog.querySelector('[data-action="reject"]').textContent = languageCopy.reject;
+      dialog.querySelector('[data-action="accept"]').textContent = languageCopy.accept;
+      settingsButton.querySelector('[data-settings-label]').textContent = languageCopy.settings;
+    };
+
+    const ensureGtag = () => {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function () {
+        window.dataLayer.push(arguments);
+      };
+    };
+
+    const enableAnalytics = () => {
+      if (!measurementId || document.documentElement.dataset.analyticsEnabled === 'true') return;
+
+      window[disableKey] = false;
+      ensureGtag();
+      window.gtag('consent', 'update', {
+        analytics_storage: 'granted',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      });
+      window.gtag('js', new Date());
+      window.gtag('config', measurementId, { anonymize_ip: true });
+      document.documentElement.dataset.analyticsEnabled = 'true';
+
+      if (document.querySelector('script[data-eminwux-analytics]')) return;
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+      script.dataset.eminwuxAnalytics = '';
+      script.addEventListener('error', () => {
+        script.remove();
+        delete document.documentElement.dataset.analyticsEnabled;
+      });
+      document.head.append(script);
+    };
+
+    const deleteAnalyticsCookies = () => {
+      const names = document.cookie
+        .split(';')
+        .map((cookie) => cookie.split('=')[0].trim())
+        .filter((name) => name === '_ga' || name === '_gid' || name === '_gat' || name.startsWith('_ga_'));
+      const hostnameParts = location.hostname.split('.');
+      const domains = ['', ...hostnameParts.map((_, index) => `.${hostnameParts.slice(index).join('.')}`)];
+
+      names.forEach((name) => {
+        domains.forEach((domain) => {
+          const domainAttribute = domain ? `; Domain=${domain}` : '';
+          document.cookie = `${name}=; Max-Age=0; Path=/${domainAttribute}; SameSite=Lax`;
+        });
+      });
+    };
+
+    const disableAnalytics = () => {
+      if (!measurementId) return;
+      window[disableKey] = true;
+      if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', {
+          analytics_storage: 'denied',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        });
+      }
+      delete document.documentElement.dataset.analyticsEnabled;
+      deleteAnalyticsCookies();
+    };
+
+    const openDialog = () => {
+      applyLanguage();
+      if (!dialog.open) dialog.showModal();
+    };
+
+    const closeDialog = () => {
+      if (dialog.open) dialog.close();
+    };
+
+    dialog.addEventListener('close', () => {
+      document.documentElement.classList.remove('cookie-dialog-open');
+    });
+
+    dialog.addEventListener('cancel', () => {
+      document.documentElement.classList.remove('cookie-dialog-open');
+    });
+
+    dialog.querySelector('[data-action="accept"]').addEventListener('click', () => {
+      writeStorage(STORAGE_KEY, ACCEPTED);
+      enableAnalytics();
+      closeDialog();
+    });
+
+    dialog.querySelector('[data-action="reject"]').addEventListener('click', () => {
+      writeStorage(STORAGE_KEY, REJECTED);
+      disableAnalytics();
+      closeDialog();
+    });
+
+    settingsButton.addEventListener('click', () => {
+      document.documentElement.classList.add('cookie-dialog-open');
+      openDialog();
+    });
+
+    window.addEventListener('eminwux:language-change', (event) => {
+      applyLanguage(event.detail?.lang);
+    });
+
+    window.addEventListener('storage', (event) => {
+      if (event.key === LANGUAGE_KEY) applyLanguage();
+      if (event.key !== STORAGE_KEY) return;
+      if (event.newValue === ACCEPTED) enableAnalytics();
+      if (event.newValue === REJECTED) disableAnalytics();
+    });
+
+    applyLanguage();
+    const savedConsent = readStorage(STORAGE_KEY);
+    if (savedConsent === ACCEPTED) {
+      enableAnalytics();
+    } else {
+      disableAnalytics();
+      if (savedConsent !== REJECTED) {
+        document.documentElement.classList.add('cookie-dialog-open');
+        openDialog();
+      }
+    }
+  })();
+</script>
