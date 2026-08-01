@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NavIsland from '../../islands/NavIsland.jsx';
+import { PROFILE } from '../../data/site.js';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -60,12 +61,12 @@ const jsonLd = {
   keywords: post.data.tags.join(', '),
   author: {
     '@type': 'Person',
-    name: 'Emiliano Spinella',
+    name: PROFILE.name,
     url: 'https://eminwux.com',
   },
   publisher: {
     '@type': 'Person',
-    name: 'Emiliano Spinella',
+    name: PROFILE.name,
     url: 'https://eminwux.com',
   },
   image: imageUrl,
@@ -106,6 +107,13 @@ const jsonLd = {
         <span style="color: var(--fg-mute); font-size: 12px; font-family: 'JetBrains Mono', monospace;">
           {dateFmt(post.data.date)}
           {post.data.updated && <> · updated {dateFmt(post.data.updated)}</>}
+        </span>
+        <span aria-hidden="true" style="color: var(--fg-mute); font-size: 12px;">·</span>
+        <span data-testid="blog-post-author" style="color: var(--fg-mute); font-size: 12px; font-family: 'JetBrains Mono', monospace;">
+          {post.data.lang === 'es' ? 'Por' : 'By'}{' '}
+          <a href="/about" rel="author" class="link-u" style="color: var(--accent); text-decoration: none;">
+            {PROFILE.name}
+          </a>
         </span>
       </div>
 
