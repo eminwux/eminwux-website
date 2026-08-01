@@ -67,7 +67,8 @@ export const VIDEOS = [
     id: "1QFqUFEPGRw",
     title: "chroot: la raíz falsa que cambió el mundo de un proceso",
     views: null,
-    duration: null,
+    duration: "17:16",
+    uploadDate: "2026-07-29T03:09:19-07:00",
     age: "nuevo",
     lang: "es",
     articleSlug: "chroot-raiz-falsa",
@@ -80,6 +81,7 @@ export const VIDEOS = [
     title: "Linux Quedó Obsoleto: La Discusión que Marcó la Historia",
     views: "200K",
     duration: "33:18",
+    uploadDate: "2025-05-15T09:00:33-07:00",
     age: "1 year ago",
     lang: "es",
     description:
@@ -91,6 +93,7 @@ export const VIDEOS = [
     title: "BSD: The Hidden History of the Forgotten Unix",
     views: "73K",
     duration: "39:48",
+    uploadDate: "2025-05-29T09:00:54-07:00",
     age: "1 year ago",
     lang: "en",
     description:
@@ -102,6 +105,7 @@ export const VIDEOS = [
     title: "Microsoft vs. Linux: The All-Out War for the Future of Computing",
     views: "58K",
     duration: "43:06",
+    uploadDate: "2025-05-22T10:36:24-07:00",
     age: "1 year ago",
     lang: "en",
     description:
@@ -113,6 +117,7 @@ export const VIDEOS = [
     title: "Cuando Linux se conectó: la historia oculta detrás del networking",
     views: "36K",
     duration: "23:29",
+    uploadDate: "2025-06-28T09:19:26-07:00",
     age: "11 months ago",
     lang: "es",
     description:
@@ -124,6 +129,7 @@ export const VIDEOS = [
     title: "Without macOS, Apple would have died: the true story",
     views: "35K",
     duration: "43:43",
+    uploadDate: "2025-06-06T10:00:22-07:00",
     age: "1 year ago",
     lang: "en",
     description:
@@ -135,6 +141,7 @@ export const VIDEOS = [
     title: "GNU/Linux Terminal Language: Prompt & Streams",
     views: "5.9K",
     duration: "12:25",
+    uploadDate: "2025-05-13T04:45:01-07:00",
     age: "1 year ago",
     lang: "en",
     description:

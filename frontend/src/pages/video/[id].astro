@@ -6,12 +6,20 @@ import {
   VIDEO_THUMBNAIL_FALLBACK,
   youtubeThumbnailCandidates,
 } from '../../utils/videoThumbnails.js';
+import {
+  assertValidVideoMetadata,
+  durationToIso8601,
+} from '../../utils/videoMetadata.js';
 
 export async function getStaticPaths() {
-  return VIDEOS.map((v) => ({
-    params: { id: v.id },
-    props: { video: v },
-  }));
+  return VIDEOS.map((video) => {
+    assertValidVideoMetadata(video);
+
+    return {
+      params: { id: video.id },
+      props: { video },
+    };
+  });
 }
 
 const { id } = Astro.params;
@@ -30,10 +38,9 @@ const jsonLd = video ? {
   name: video.title,
   description,
   thumbnailUrl: thumbnailUrls,
-  uploadDate: undefined,
-  contentUrl: `https://www.youtube.com/watch?v=${id}`,
+  uploadDate: video.uploadDate,
   embedUrl: `https://www.youtube-nocookie.com/embed/${id}`,
-  duration: undefined,
+  duration: durationToIso8601(video.duration),
   inLanguage: lang,
 } : undefined;
 ---
