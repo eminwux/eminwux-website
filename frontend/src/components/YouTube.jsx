@@ -5,8 +5,33 @@ import { Play, ListVideo, ExternalLink } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 import VideoThumbnail from "./VideoThumbnail";
 
+const getVideoAge = (uploadDate, lang) => {
+  if (!uploadDate) return "";
+
+  const publishedAt = new Date(uploadDate);
+  if (Number.isNaN(publishedAt.getTime())) return "";
+
+  const diffMs = Math.max(0, Date.now() - publishedAt.getTime());
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffDays < 7) return lang === "es" ? "nuevo" : "new";
+
+  const relativeTime = new Intl.RelativeTimeFormat(lang, { numeric: "always" });
+
+  if (diffDays < 30) {
+    return relativeTime.format(-Math.floor(diffDays / 7), "week");
+  }
+
+  if (diffDays < 365) {
+    return relativeTime.format(-Math.floor(diffDays / 30), "month");
+  }
+
+  return relativeTime.format(-Math.floor(diffDays / 365), "year");
+};
+
 const VideoCard = ({ v, i }) => {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const age = getVideoAge(v.uploadDate, lang);
 
   return (
     <a
@@ -57,7 +82,7 @@ const VideoCard = ({ v, i }) => {
               <span>·</span>
             </>
           )}
-          <span>{v.age}</span>
+          {age && <span>{age}</span>}
         </div>
       </div>
     </a>
