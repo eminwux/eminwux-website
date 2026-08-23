@@ -23,7 +23,7 @@ export const durationToIso8601 = (duration) => {
 };
 
 export const assertValidVideoMetadata = (video) => {
-  for (const field of ['id', 'title', 'description', 'duration', 'uploadDate']) {
+  for (const field of ['id', 'title', 'description', 'uploadDate']) {
     if (typeof video?.[field] !== 'string' || video[field].trim() === '') {
       throw new Error(`Video ${video?.id ?? '<unknown>'} is missing ${field}`);
     }
@@ -36,5 +36,10 @@ export const assertValidVideoMetadata = (video) => {
     throw new Error(`Video ${video.id} has an invalid uploadDate: ${video.uploadDate}`);
   }
 
-  durationToIso8601(video.duration);
+  if (video.duration != null) {
+    if (typeof video.duration !== 'string' || video.duration.trim() === '') {
+      throw new Error(`Video ${video.id} has an invalid duration`);
+    }
+    durationToIso8601(video.duration);
+  }
 };
