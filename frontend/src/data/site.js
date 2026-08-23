@@ -64,12 +64,24 @@ export const PROJECTS = [
 // Top videos from @eminwux — static, ordered by impact
 export const VIDEOS = [
   {
+    id: "1U10tCR1Axo",
+    title: "Omarchy: mi primera prueba del Linux de DHH",
+    views: null,
+    duration: null,
+    uploadDate: "2026-08-23T00:00:00+02:00",
+    age: "nuevo",
+    lang: "es",
+    description:
+      "Omarchy es un sistema Linux moderno, atractivo y opinionado construido sobre Arch, Hyprland y Quickshell. En esta primera prueba exploro la visión de DHH: un Linux para gente a la que le gustan las computadoras, con una experiencia lista para usar, maleable y pensada también para gaming y herramientas de IA.",
+    tags: ["Omarchy", "Arch Linux", "Hyprland", "DHH", "Linux"]
+  },
+  {
     id: "1QFqUFEPGRw",
     title: "chroot: la raíz falsa que cambió el mundo de un proceso",
     views: null,
     duration: "17:16",
     uploadDate: "2026-07-29T03:09:19-07:00",
-    age: "nuevo",
+    age: "3 weeks ago",
     lang: "es",
     articleSlug: "chroot-raiz-falsa",
     description:
