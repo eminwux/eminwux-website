@@ -40,7 +40,7 @@ const jsonLd = video ? {
   thumbnailUrl: thumbnailUrls,
   uploadDate: video.uploadDate,
   embedUrl: `https://www.youtube-nocookie.com/embed/${id}`,
-  duration: durationToIso8601(video.duration),
+  ...(video.duration ? { duration: durationToIso8601(video.duration) } : {}),
   inLanguage: lang,
 } : undefined;
 ---
