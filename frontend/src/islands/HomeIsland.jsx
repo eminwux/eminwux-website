@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import Nav from "../components/Nav";
 import Hero from "../components/Hero";
 import { LanguageProvider, useLanguage } from "../i18n/LanguageContext";
-import { Terminal, Youtube, Mail, ArrowRight, Play, ExternalLink, Github, Award, Briefcase, GraduationCap, TrendingUp } from "lucide-react";
-import { VIDEOS, PROJECTS, STACK, SOCIAL } from "../data/site";
+import { Terminal, Youtube, Mail, ArrowRight, Play, ExternalLink, Github, Award, Briefcase, GraduationCap, TrendingUp, MessagesSquare, Users } from "lucide-react";
+import { VIDEOS, PROJECTS, STACK, SOCIAL, COMMUNITY } from "../data/site";
+import { HOME } from "../constants/testIds";
 import VideoThumbnail from "../components/VideoThumbnail";
 
 const StatsBar = () => {
@@ -154,6 +155,66 @@ const TechStackSection = () => {
   );
 };
 
+const CommunityHighlightSection = () => {
+  const { t } = useLanguage();
+  return (
+    <section
+      className="container-x reveal"
+      data-testid={HOME.communityHighlight}
+      style={{ paddingTop: 48, paddingBottom: 24, animationDelay: "0.23s" }}
+    >
+      <div className="section-h" style={{ marginBottom: 24 }}>
+        <span style={{ color: "var(--accent)" }}>$</span>
+        <span>{t('home.community.heading')}</span>
+      </div>
+      <div
+        className="card-term"
+        style={{
+          padding: "clamp(28px, 5vw, 46px)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: 30
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "flex-start", gap: 18, flex: "1 1 460px" }}>
+          <div
+            aria-hidden="true"
+            style={{ width: 48, height: 48, border: "1px solid var(--accent)", borderRadius: 5, display: "grid", placeItems: "center", color: "var(--accent)", background: "rgba(163, 230, 53, 0.06)", boxShadow: "0 0 18px var(--accent-glow)", flexShrink: 0 }}
+          >
+            <Users size={23} />
+          </div>
+          <div>
+            <h2 style={{ color: "var(--fg)", fontSize: "clamp(21px, 3vw, 28px)", lineHeight: 1.25, margin: "0 0 12px", fontFamily: "'JetBrains Mono', monospace" }}>
+              {t('home.community.title')}
+            </h2>
+            <p style={{ color: "var(--fg-dim)", fontSize: 14, lineHeight: 1.8, margin: 0, maxWidth: 700, fontFamily: "'IBM Plex Mono', monospace" }}>
+              {t('home.community.desc')}
+            </p>
+          </div>
+        </div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
+          <a
+            href={COMMUNITY.discord}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid={`${HOME.communityDiscord}-home`}
+            className="focus-ring"
+            aria-label={`${t('home.community.join')} (${t('community.externalNote')})`}
+            style={{ fontSize: 14, color: "var(--bg)", background: "var(--accent)", border: "1px solid var(--accent)", padding: "11px 18px", borderRadius: 4, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, fontWeight: 700 }}
+          >
+            <MessagesSquare size={16} aria-hidden="true" /> {t('home.community.join')}
+          </a>
+          <a href="/community" className="link-u focus-ring" style={{ fontSize: 13, color: "var(--fg)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 7, padding: "11px 4px" }}>
+            {t('home.community.learnMore')} <ArrowRight size={14} aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const CTASection = () => {
   const { t } = useLanguage();
   return (
@@ -224,6 +285,7 @@ const HomeBody = () => {
           </div>
         </section>
         <TechStackSection />
+        <CommunityHighlightSection />
         <CTASection />
       </main>
     </>

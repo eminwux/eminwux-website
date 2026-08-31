@@ -143,6 +143,11 @@ html, body {
 }
 .link-u:hover::after { transform: scaleX(1); }
 
+.focus-ring:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
 .card-term {
   background: var(--bg-soft);
   border: 1px solid var(--border-soft);

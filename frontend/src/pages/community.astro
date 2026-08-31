@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CommunityIsland from '../islands/CommunityIsland.jsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'eminwux Community',
+  url: new URL('/community/', Astro.site).toString(),
+  description: 'Join the eminwux community on Discord to share ideas, ask questions, and discuss professional, academic, and hobby projects.',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: 'eminwux',
+    url: new URL('/', Astro.site).toString(),
+  },
+};
+---
+<BaseLayout
+  title="Community"
+  description="Join the eminwux community on Discord to share ideas, ask questions, and discuss professional, academic, and hobby projects. Everyone is welcome."
+  jsonLd={jsonLd}
+>
+  <CommunityIsland client:load />
+</BaseLayout>

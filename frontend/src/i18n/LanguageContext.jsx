@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { en, es } from './translations';
 
 const translations = { en, es };
@@ -29,6 +29,10 @@ const LanguageContext = createContext(null);
 
 export function LanguageProvider({ children }) {
   const [lang, setLangState] = useState(() => detectLanguage());
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   const setLang = useCallback((newLang) => {
     if (!SUPPORTED_LANGS.includes(newLang)) return;

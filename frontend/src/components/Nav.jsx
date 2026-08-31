@@ -173,6 +173,7 @@ const Nav = () => {
           {navLink("/blog",      t('nav.blog'),     "nav-blog")}
           {navLink("/youtube",   t('nav.youtube'),  HOME.navYoutube)}
           {navLink("/projects",  t('nav.projects'), HOME.navProjects)}
+          {navLink("/community", t('nav.community'), HOME.navCommunity)}
           {navLink("/about",     t('nav.about'),    HOME.navAbout)}
           {navLink("/contact",   t('nav.contact'),  HOME.navContact)}
         </nav>
@@ -232,6 +233,7 @@ const Nav = () => {
             {mobileNavLink("/blog",     t('nav.blog'),     "nav-blog-m")}
             {mobileNavLink("/youtube",  t('nav.youtube'),  HOME.navYoutube)}
             {mobileNavLink("/projects", t('nav.projects'), HOME.navProjects)}
+            {mobileNavLink("/community", t('nav.community'), HOME.navCommunity)}
             {mobileNavLink("/about",    t('nav.about'),    HOME.navAbout)}
             {mobileNavLink("/contact",  t('nav.contact'),  HOME.navContact)}
           </div>
@@ -265,11 +267,11 @@ const Nav = () => {
       )}
 
       <style>{`
-        @media (max-width: 640px) {
+        @media (max-width: 1050px) {
           .hidden-sm { display: none !important; }
           .mobile-menu-btn { display: flex !important; }
         }
-        @media (min-width: 641px) {
+        @media (min-width: 1051px) {
           .mobile-menu-btn { display: none !important; }
         }
       `}</style>

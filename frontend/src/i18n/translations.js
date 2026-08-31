@@ -6,6 +6,7 @@ export const en = {
     home: "home",
     blog: "blog",
     projects: "projects",
+    community: "community",
     youtube: "youtube",
     contact: "contact",
     about: "about"
@@ -33,6 +34,13 @@ export const en = {
     openSource: "open source · ls -la ~/oss",
     viewAllProjects: "View all projects",
     techStack: "tech stack · cat ~/stack.yaml",
+    community: {
+      heading: "community · connect discord",
+      title: "Build, learn, and share with us",
+      desc: "Bring your questions, ideas, and projects — professional, academic, or just for fun. Everyone is welcome, whatever their background or experience level.",
+      join: "Join the Discord",
+      learnMore: "Explore the community"
+    },
     cta: {
       title: "Let's collaborate",
       desc: "Open to collab on YouTube videos and podcast appearances.",
@@ -40,6 +48,38 @@ export const en = {
       projects: "Explore projects",
       contact: "Get in touch"
     }
+  },
+  community: {
+    back: "cd ~",
+    status: "community online",
+    title: "Join the eminwux community",
+    intro: "A welcoming place to share ideas, ask questions, and talk about the projects you are building — whether they are professional, academic, or just for fun.",
+    welcome: "Every experience level and background is welcome.",
+    joinDiscord: "Join us on Discord",
+    externalNote: "opens in a new tab",
+    audiencesHeading: "There is room for every kind of project",
+    audiences: {
+      professional: {
+        title: "Professional",
+        desc: "Discuss engineering decisions, infrastructure challenges, open source, and lessons learned while building for real users."
+      },
+      academic: {
+        title: "Academic",
+        desc: "Ask about coursework, research, operating systems, Linux, Unix, containers, or the ideas behind the technology."
+      },
+      hobby: {
+        title: "Hobby",
+        desc: "Share the tool, homelab, script, experiment, or wonderfully unnecessary project you are building for yourself."
+      }
+    },
+    participateHeading: "What you can do here",
+    participate: {
+      share: "Share your work in progress and the thinking behind it.",
+      ask: "Ask questions when you are stuck or want another perspective.",
+      discuss: "Exchange ideas about GNU/Linux, Unix, infrastructure, containers, terminals, and computing history."
+    },
+    closingTitle: "You do not need to be an expert to participate.",
+    closingDesc: "Curiosity is enough. Introduce yourself, tell us what you are exploring, or simply join the conversation when you feel ready."
   },
   projects: {
     sectionHeading: "03 / projects · ls -la ~/oss",
@@ -111,6 +151,7 @@ export const es = {
     home: "inicio",
     blog: "blog",
     projects: "proyectos",
+    community: "comunidad",
     youtube: "youtube",
     contact: "contacto",
     about: "sobre mí"
@@ -138,6 +179,13 @@ export const es = {
     openSource: "código abierto · ls -la ~/oss",
     viewAllProjects: "Ver todos los proyectos",
     techStack: "stack tecnológico · cat ~/stack.yaml",
+    community: {
+      heading: "comunidad · connect discord",
+      title: "Construye, aprende y comparte con nosotros",
+      desc: "Trae tus preguntas, ideas y proyectos, ya sean profesionales, académicos o por afición. Todas las personas son bienvenidas, sin importar su trayectoria o nivel de experiencia.",
+      join: "Únete al Discord",
+      learnMore: "Conoce la comunidad"
+    },
     cta: {
       title: "Colaboremos",
       desc: "Abierto a colaborar en videos de YouTube y apariciones en podcasts.",
@@ -145,6 +193,38 @@ export const es = {
       projects: "Explorar proyectos",
       contact: "Contáctame"
     }
+  },
+  community: {
+    back: "cd ~",
+    status: "comunidad en línea",
+    title: "Únete a la comunidad de eminwux",
+    intro: "Un espacio abierto para compartir ideas, hacer preguntas y conversar sobre los proyectos que estás construyendo, ya sean profesionales, académicos o por afición.",
+    welcome: "Todas las personas son bienvenidas, sin importar su experiencia o trayectoria.",
+    joinDiscord: "Únete en Discord",
+    externalNote: "se abre en una pestaña nueva",
+    audiencesHeading: "Hay lugar para todo tipo de proyecto",
+    audiences: {
+      professional: {
+        title: "Profesional",
+        desc: "Conversa sobre decisiones de ingeniería, desafíos de infraestructura, open source y lecciones aprendidas al construir para usuarios reales."
+      },
+      academic: {
+        title: "Académico",
+        desc: "Pregunta sobre estudios, investigación, sistemas operativos, Linux, Unix, contenedores o las ideas detrás de la tecnología."
+      },
+      hobby: {
+        title: "Por afición",
+        desc: "Comparte esa herramienta, homelab, script, experimento o proyecto maravillosamente innecesario que construyes para ti."
+      }
+    },
+    participateHeading: "Qué puedes hacer aquí",
+    participate: {
+      share: "Comparte tu trabajo en curso y las ideas que hay detrás.",
+      ask: "Haz preguntas cuando te atasques o quieras conocer otra perspectiva.",
+      discuss: "Intercambia ideas sobre GNU/Linux, Unix, infraestructura, contenedores, terminales e historia de la computación."
+    },
+    closingTitle: "No necesitas ser una persona experta para participar.",
+    closingDesc: "La curiosidad es suficiente. Preséntate, cuéntanos qué estás explorando o simplemente únete a la conversación cuando te apetezca."
   },
   projects: {
     sectionHeading: "03 / proyectos · ls -la ~/oss",
