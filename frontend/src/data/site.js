@@ -20,6 +20,10 @@ export const SOCIAL = {
   email: "mailto:me@eminwux.com"
 };
 
+export const COMMUNITY = {
+  discord: "https://discord.gg/r3jNVyKjya"
+};
+
 export const PROJECTS = [
   {
     id: "kukeon",
