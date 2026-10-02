@@ -17,6 +17,7 @@ export const SOCIAL = {
   twitter: "https://x.com/eminwux",
   linkedin: "https://www.linkedin.com/in/eminwux",
   youtube: "https://www.youtube.com/@eminwux",
+  instagram: "https://www.instagram.com/eminwux/",
   email: "mailto:me@eminwux.com"
 };
 
