@@ -2,7 +2,7 @@ import React from "react";
 import { TerminalWindow, Prompt, Comment } from "./Terminal";
 import { SOCIAL, PROFILE } from "../data/site";
 import { HOME } from "../constants/testIds";
-import { Github, Twitter, Linkedin, Youtube, Mail, ArrowUpRight } from "lucide-react";
+import { Github, Twitter, Linkedin, Youtube, Instagram, Mail, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 
 const Row = ({ Icon, label, value, href, testid }) => (
@@ -56,6 +56,7 @@ const Contact = () => {
             <Row Icon={Twitter}  label={t('contact.x')}        value="x.com/eminwux"              href={SOCIAL.twitter} testid={`${HOME.socialTwitter}-row`} />
             <Row Icon={Linkedin} label={t('contact.linkedin')} value="linkedin.com/in/eminwux"    href={SOCIAL.linkedin} testid={`${HOME.socialLinkedin}-row`} />
             <Row Icon={Youtube}  label={t('contact.youtube')}  value="youtube.com/@eminwux"       href={SOCIAL.youtube} testid={`${HOME.socialYoutube}-row`} />
+            <Row Icon={Instagram} label={t('contact.instagram')} value="instagram.com/eminwux"    href={SOCIAL.instagram} testid={`${HOME.socialInstagram}-row`} />
           </div>
         </div>
       </div>

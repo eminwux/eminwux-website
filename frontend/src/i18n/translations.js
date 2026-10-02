@@ -126,6 +126,7 @@ export const en = {
     x: "x",
     linkedin: "linkedin",
     youtube: "youtube",
+    instagram: "instagram",
     windowTitle: "links · ~/contacts"
   },
   about: {
@@ -271,6 +272,7 @@ export const es = {
     x: "x",
     linkedin: "linkedin",
     youtube: "youtube",
+    instagram: "instagram",
     windowTitle: "enlaces · ~/contactos"
   },
   about: {

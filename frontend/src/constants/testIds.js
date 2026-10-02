@@ -15,6 +15,7 @@ export const HOME = {
   socialTwitter: "social-twitter",
   socialLinkedin: "social-linkedin",
   socialYoutube: "social-youtube",
+  socialInstagram: "social-instagram",
   socialEmail: "social-email",
   communityHighlight: "community-highlight",
   communityDiscord: "community-discord",

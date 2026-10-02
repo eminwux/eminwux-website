@@ -7,7 +7,7 @@ const jsonLd = {
   '@type': 'ContactPage',
   name: 'Contact Emiliano Spinella | eminwux',
   url: new URL('/contact/', Astro.site).toString(),
-  description: 'Contact Emiliano Spinella (eminwux) — email, GitHub, X/Twitter, LinkedIn and YouTube.',
+  description: 'Contact Emiliano Spinella (eminwux) — email, GitHub, X/Twitter, LinkedIn, YouTube and Instagram.',
   about: {
     '@type': 'Person',
     name: 'Emiliano Spinella',
@@ -17,7 +17,7 @@ const jsonLd = {
 ---
 <BaseLayout
   title="Contact Emiliano Spinella"
-  description="Contact Emiliano Spinella (eminwux) — email, GitHub, X/Twitter, LinkedIn and YouTube."
+  description="Contact Emiliano Spinella (eminwux) — email, GitHub, X/Twitter, LinkedIn, YouTube and Instagram."
   jsonLd={jsonLd}
 >
   <ContactIsland client:load />
